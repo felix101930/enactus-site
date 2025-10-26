@@ -3,7 +3,8 @@
 import Navbar from '../components/layouts/Navbar';
 import HeroSection from '../components/sections/HeroSection';
 import AboutIntroSection from '../components/sections/AboutIntroSection';
-import CommunityStatsSection from '../components/sections/CommunityStatsSection'; // 1. Import it
+import CommunityStatsSection from '../components/sections/CommunityStatsSection';
+import TeamSection from '../components/sections/TeamSection'; // 1. Import it
 
 function HomePage() {
   return (
@@ -12,7 +13,8 @@ function HomePage() {
       <main>
         <HeroSection />
         <AboutIntroSection />
-        <CommunityStatsSection /> {/* 2. Add it here */}
+        <CommunityStatsSection />
+        <TeamSection /> {/* 2. Add it here */}
       </main>
     </div>
   );
