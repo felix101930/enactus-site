@@ -38,3 +38,11 @@ build
 # Misc
 .cache
 .temp
+
+# OS and tooling
+tsconfig.tsbuildinfo
+Thumbs.db
+desktop.ini
+
+# Vite / dev caches
+node_modules/.vite
