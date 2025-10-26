@@ -1,0 +1,48 @@
+
+
+// src/components/sections/AboutIntroSection.tsx
+
+import aboutImage from '../../assets/images/image-about-intro.png';
+
+function AboutIntroSection() {
+  return (
+    <section className="bg-white py-20 px-4">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+        
+        {/* Left Column: Text Content */}
+        <div className="text-left">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+            What is Enactus SAIT?
+          </h2>
+          <p className="text-gray-600 leading-relaxed mb-8">
+            Enactus SAIT is a dynamic community of student leaders, innovators, and
+            entrepreneurs committed to using business principles to create positive
+            social, environmental, and economic impact. As part of the global Enactus
+            network, we aim to empower individuals and improve communities through
+            sustainable projects that address real-world challenges. By fostering creativity,
+            teamwork, and leadership, Enactus SAIT provides students with opportunities to
+            develop essential skills while making a meaningful difference.
+          </p>
+          <a
+            href="#"
+            className="inline-block px-8 py-3 bg-gray-800 text-white font-bold rounded-md hover:bg-gray-900 transition-colors"
+          >
+            About Us
+          </a>
+        </div>
+
+        {/* Right Column: Image */}
+        <div>
+          <img
+            src={aboutImage}
+            alt="Enactus SAIT community event"
+            className="w-full h-auto rounded-lg shadow-lg"
+          />
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
+export default AboutIntroSection;
