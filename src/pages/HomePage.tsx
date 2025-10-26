@@ -2,7 +2,8 @@
 
 import Navbar from '../components/layouts/Navbar';
 import HeroSection from '../components/sections/HeroSection';
-import AboutIntroSection from '../components/sections/AboutIntroSection'; // 1. Import it
+import AboutIntroSection from '../components/sections/AboutIntroSection';
+import CommunityStatsSection from '../components/sections/CommunityStatsSection'; // 1. Import it
 
 function HomePage() {
   return (
@@ -10,7 +11,8 @@ function HomePage() {
       <Navbar />
       <main>
         <HeroSection />
-        <AboutIntroSection /> {/* 2. Add it here */}
+        <AboutIntroSection />
+        <CommunityStatsSection /> {/* 2. Add it here */}
       </main>
     </div>
   );
