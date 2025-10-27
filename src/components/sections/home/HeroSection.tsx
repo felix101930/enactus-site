@@ -1,6 +1,6 @@
 // src/components/sections/HeroSection.tsx
 
-import heroBackground from '../../assets/backgrounds/background-hero.png';
+import heroBackground from '../../../assets/backgrounds/background-hero.png';
 
 function HeroSection() {
   return (

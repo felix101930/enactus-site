@@ -1,6 +1,6 @@
 // src/components/sections/CommunityStatsSection.tsx
 
-import communityBg from '../../assets/backgrounds/background-community-stats.png';
+import communityBg from '../../../assets/backgrounds/background-community-stats.png';
 
 // An array to hold the stats makes the code cleaner
 const stats = [

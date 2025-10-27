@@ -1,9 +1,9 @@
 // src/components/sections/PartnersSection.tsx
 
 // Import all the partner logos we have
-import logoSait from '../../assets/logos/logo-sait.png';
-import logoCpa from '../../assets/logos/logo-cpa-alberta.png';
-import logo3m from '../../assets/logos/logo-3m.png';
+import logoSait from '../../../assets/logos/logo-sait.png';
+import logoCpa from '../../../assets/logos/logo-cpa-alberta.png';
+import logo3m from '../../../assets/logos/logo-3m.png';
 // We'll add ATB and Scotiabank later if we get the logos
 
 const partners = [

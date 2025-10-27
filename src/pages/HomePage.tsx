@@ -1,26 +1,22 @@
 // src/pages/HomePage.tsx
 
-import Navbar from '../components/layouts/Navbar';
-import HeroSection from '../components/sections/HeroSection';
-import AboutIntroSection from '../components/sections/AboutIntroSection';
-import CommunityStatsSection from '../components/sections/CommunityStatsSection';
-import TeamSection from '../components/sections/TeamSection';
-import PartnersSection from '../components/sections/PartnersSection';
-import Footer from '../components/layouts/Footer'; // 1. Import it
+import HeroSection from '../components/sections/home/HeroSection';
+import AboutIntroSection from '../components/sections/home/AboutIntroSection';
+import CommunityStatsSection from '../components/sections/home/CommunityStatsSection';
+import TeamSection from '../components/sections/home/TeamSection';
+// ContactFormSection import is now GONE
+import PartnersSection from '../components/sections/home/PartnersSection';
 
 function HomePage() {
   return (
-    <div>
-      <Navbar />
-      <main>
-        <HeroSection />
-        <AboutIntroSection />
-        <CommunityStatsSection />
-        <TeamSection />
-        <PartnersSection />
-      </main>
-      <Footer /> {/* 2. Add it here */}
-    </div>
+    <main>
+      <HeroSection />
+      <AboutIntroSection />
+      <CommunityStatsSection />
+      <TeamSection />
+      {/* <ContactFormSection /> is now GONE */}
+      <PartnersSection />
+    </main>
   );
 }
 

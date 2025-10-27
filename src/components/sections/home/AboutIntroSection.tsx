@@ -2,7 +2,7 @@
 
 // src/components/sections/AboutIntroSection.tsx
 
-import aboutImage from '../../assets/images/image-about-intro.png';
+import aboutImage from '../../../assets/images/image-about-intro.png';
 
 function AboutIntroSection() {
   return (
