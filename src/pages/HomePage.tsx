@@ -5,7 +5,8 @@ import HeroSection from '../components/sections/HeroSection';
 import AboutIntroSection from '../components/sections/AboutIntroSection';
 import CommunityStatsSection from '../components/sections/CommunityStatsSection';
 import TeamSection from '../components/sections/TeamSection';
-import PartnersSection from '../components/sections/PartnersSection'; // 1. Import it
+import PartnersSection from '../components/sections/PartnersSection';
+import Footer from '../components/layouts/Footer'; // 1. Import it
 
 function HomePage() {
   return (
@@ -16,8 +17,9 @@ function HomePage() {
         <AboutIntroSection />
         <CommunityStatsSection />
         <TeamSection />
-        <PartnersSection /> {/* 2. Add it here */}
+        <PartnersSection />
       </main>
+      <Footer /> {/* 2. Add it here */}
     </div>
   );
 }
