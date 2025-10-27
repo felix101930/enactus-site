@@ -1,19 +1,29 @@
-// src/components/sections/CommunityStatsSection.tsx
+// src/components/sections/home/CommunityStatsSection.tsx
 
+import CountUp from 'react-countup'; // 1. IMPORT CountUp
+import { useInView } from 'react-intersection-observer'; // 2. IMPORT useInView
 import communityBg from '../../../assets/backgrounds/background-community-stats.png';
 
-// An array to hold the stats makes the code cleaner
 const stats = [
-  { value: '2019', label: 'Year of Establishment' },
-  { value: '3', label: 'Projects' },
-  { value: '116', label: 'Student Volunteers' },
-  { value: '7,487', label: 'Volunteer Hours' },
-  { value: '$20,000', label: 'Revenue & Grants' },
+  // IMPORTANT: We need to convert the string values to numbers for CountUp to work
+  // We remove commas from numbers.
+  { value: 2019, label: 'Year of Establishment' },
+  { value: 3, label: 'Projects' },
+  { value: 116, label: 'Student Volunteers' },
+  { value: 7487, label: 'Volunteer Hours' },
+  { value: 20000, label: 'Revenue & Grants', isCurrency: true }, // Add a flag for currency
 ];
 
 function CommunityStatsSection() {
+  // 3. SET UP the useInView hook
+  const { ref, inView } = useInView({
+    triggerOnce: true, // Only count up once
+    threshold: 0.5,    // Start when 50% of the section is visible
+  });
+
   return (
-    <section className="relative bg-gray-900 text-white py-24 px-4">
+    // We attach the ref to the section so the hook knows what to watch
+    <section ref={ref} className="relative bg-gray-900 text-white py-24 px-4">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <img
@@ -37,12 +47,23 @@ function CommunityStatsSection() {
           ideas grow and everyone can make an impact.
         </p>
 
-        {/* Stats Grid */}
+        {/* Stats Grid - REVISED */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {stats.map((stat) => (
             <div key={stat.label}>
               <p className="text-4xl md:text-5xl font-bold text-yellow-400">
-                {stat.value}
+                {/* 4. USE the CountUp component */}
+                {inView && ( // Only render CountUp when the section is in view
+                  <CountUp
+                    start={0}
+                    end={stat.value}
+                    duration={2.5}
+                    separator=","
+                    prefix={stat.isCurrency ? '$' : ''} // Add a prefix if it's currency
+                    enableScrollSpy // An alternative way to trigger on scroll
+                    scrollSpyDelay={200} // Small delay after scrolling into view
+                  />
+                )}
               </p>
               <p className="text-sm text-gray-300 mt-2">{stat.label}</p>
             </div>
