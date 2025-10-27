@@ -1,4 +1,4 @@
-// src/components/sections/HeroSection.tsx
+// src/components/sections/home/HeroSection.tsx
 
 import heroBackground from '../../../assets/backgrounds/background-hero.png';
 
@@ -21,17 +21,17 @@ function HeroSection() {
           Igniting business innovation with integrity and passion.
         </h1>
         
-        {/* Buttons Container */}
+        {/* Buttons Container - REVISED */}
         <div className="mt-8 flex space-x-4">
           <a
             href="#"
-            className="px-8 py-3 bg-yellow-400 text-black font-bold rounded-md hover:bg-yellow-500 transition-colors"
+            className="px-8 py-3 bg-yellow-400 text-black font-bold rounded-md transition-all duration-300 hover:bg-yellow-500 hover:scale-105 hover:shadow-lg"
           >
             View Projects
           </a>
           <a
             href="#"
-            className="px-8 py-3 border-2 border-white text-white font-bold rounded-md hover:bg-white hover:text-black transition-colors"
+            className="px-8 py-3 border-2 border-white text-white font-bold rounded-md transition-all duration-300 hover:bg-white hover:text-black hover:scale-105 hover:shadow-lg"
           >
             Reach Us
           </a>

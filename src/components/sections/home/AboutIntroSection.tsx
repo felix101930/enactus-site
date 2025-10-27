@@ -1,6 +1,4 @@
-
-
-// src/components/sections/AboutIntroSection.tsx
+// src/components/sections/home/AboutIntroSection.tsx
 
 import aboutImage from '../../../assets/images/image-about-intro.png';
 
@@ -23,9 +21,10 @@ function AboutIntroSection() {
             teamwork, and leadership, Enactus SAIT provides students with opportunities to
             develop essential skills while making a meaningful difference.
           </p>
+          {/* About Us Button - REVISED */}
           <a
             href="#"
-            className="inline-block px-8 py-3 bg-gray-800 text-white font-bold rounded-md hover:bg-gray-900 transition-colors"
+            className="inline-block px-8 py-3 bg-gray-800 text-white font-bold rounded-md transition-all duration-300 hover:bg-gray-900 hover:scale-105 hover:shadow-lg"
           >
             About Us
           </a>

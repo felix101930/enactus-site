@@ -1,4 +1,4 @@
-// src/components/sections/TeamSection.tsx
+// src/components/sections/home/TeamSection.tsx
 
 function TeamSection() {
   return (
@@ -13,11 +13,11 @@ function TeamSection() {
           Meet the passionate individuals behind our initiatives!
         </p>
 
-        {/* Team Cards Grid */}
+        {/* Team Cards Grid - REVISED */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           
           {/* Student Leaders Card */}
-          <a href="#" className="group block">
+          <a href="#" className="group block transition-all duration-300 hover:shadow-xl">
             <div className="relative overflow-hidden rounded-lg">
               <img
                 src="https://placehold.co/500x550/EFEFEF/333333?text=Student+Leader"
@@ -31,7 +31,7 @@ function TeamSection() {
           </a>
 
           {/* Faculty Advisors Card */}
-          <a href="#" className="group block">
+          <a href="#" className="group block transition-all duration-300 hover:shadow-xl">
             <div className="relative overflow-hidden rounded-lg">
               <img
                 src="https://placehold.co/500x550/EFEFEF/333333?text=Faculty+Advisor"
