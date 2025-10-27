@@ -3,16 +3,17 @@
 import { Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import BackToTopButton from '../common/BackToTopButton'; // 1. IMPORT IT
 
 function Layout() {
   return (
     <div>
       <Navbar />
       <main>
-        {/* The Outlet component will render the current page's content */}
         <Outlet />
       </main>
       <Footer />
+      <BackToTopButton /> {/* 2. ADD IT HERE */}
     </div>
   );
 }
