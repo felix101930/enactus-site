@@ -6,8 +6,6 @@ function AboutIntroSection() {
   return (
     <section className="bg-white py-20 px-4">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-        
-        {/* Left Column: Text Content */}
         <div className="text-left">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
             What is Enactus SAIT?
@@ -21,24 +19,14 @@ function AboutIntroSection() {
             teamwork, and leadership, Enactus SAIT provides students with opportunities to
             develop essential skills while making a meaningful difference.
           </p>
-          {/* About Us Button - REVISED */}
-          <a
-            href="#"
-            className="inline-block px-8 py-3 bg-gray-800 text-white font-bold rounded-md transition-all duration-300 hover:bg-gray-900 hover:scale-105 hover:shadow-lg"
-          >
+          {/* ADDED active:scale-95 */}
+          <a href="#" className="inline-block px-8 py-3 bg-gray-800 text-white font-bold rounded-md transition-all duration-300 hover:bg-gray-900 hover:scale-105 hover:shadow-lg active:scale-95">
             About Us
           </a>
         </div>
-
-        {/* Right Column: Image */}
         <div>
-          <img
-            src={aboutImage}
-            alt="Enactus SAIT community event"
-            className="w-full h-auto rounded-lg shadow-lg"
-          />
+          <img src={aboutImage} alt="Enactus SAIT community event" className="w-full h-auto rounded-lg shadow-lg" />
         </div>
-
       </div>
     </section>
   );
