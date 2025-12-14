@@ -6,10 +6,11 @@ import MobileMenu from './MobileMenu';
 import logoBlack from '../../assets/logos/logo-enactus-sait.png';
 import logoWhite from '../../assets/logos/logo-enactus-sait-white.png';
 
+// UPDATED LINKS
 const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'About Us', href: '/about' },
-  { name: 'Projects', href: '#' },
+  { name: 'Projects', href: '/projects' }, // <--- Fixed Link
   { name: 'Events', href: '#' },
   { name: 'Contact', href: '#' },
 ];
@@ -65,7 +66,6 @@ function Navbar() {
                     key={link.name}
                     to={link.href}
                     className={({ isActive }) =>
-                      // CORRECTED: Removed underline classes from here
                       `relative font-medium transition-colors hover:text-yellow-500 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-full after:bg-current after:origin-center after:transform after:scale-x-0 after:transition-transform after:duration-300
                       ${isActive ? `${activeLinkColor} after:scale-x-100` : linkColor}`
                     }
