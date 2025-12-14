@@ -6,6 +6,12 @@ import { motion } from 'framer-motion';
 // Using the same background as other headers for consistency
 import heroBg from '../assets/backgrounds/background-about-hero.png'; 
 
+// --- ICON IMPORTS ---
+// Importing the specific icons needed for the cards
+import { FaLinkedinIn } from 'react-icons/fa';
+import { FiMail, FiLink } from 'react-icons/fi';
+
+
 // --- COMPONENTS ---
 
 // 1. The "Hero Form" Section Component
@@ -96,19 +102,42 @@ const HeroFormSection = () => {
   );
 };
 
-// 2. The Social Links Section Component
+// 2. The Social Links Section Component - UPDATED
 const SocialsSection = () => {
+  // Updated data structure with icons and subtext
   const socialLinks = [
-    { name: 'Connect on LinkedIn', href: 'https://www.linkedin.com/company/enactus-sait/', color: 'hover:border-blue-500' },
-    { name: 'Follow on Instagram', href: 'https://www.instagram.com/EnactusSAIT', color: 'hover:border-pink-500' },
-    { name: 'View our LinkTree', href: 'https://linktr.ee/EnactusSAIT?utm_source=linktree_profile_share&ltsid=a3c724df-7e68-4b46-8d1f-8fbc6407678f', color: 'hover:border-green-500' }
+    { 
+      name: 'Email Us', 
+      href: 'mailto:enactus.saitpolytechnic@gmail.com',
+      subtext: 'enactus.saitpolytechnic@gmail.com',
+      icon: <FiMail size={32} />, // Mail Icon
+      color: 'bg-gray-800 hover:bg-gray-900',
+      textColor: 'text-white'
+    },
+    { 
+      name: 'Connect on LinkedIn', 
+      href: 'https://www.linkedin.com/company/enactus-sait/',
+      subtext: 'Go to Profile →',
+      icon: <FaLinkedinIn size={32} />, // LinkedIn Icon
+      color: 'bg-blue-600 hover:bg-blue-700',
+      textColor: 'text-white'
+    },
+    { 
+      name: 'View LinkTree', 
+      href: 'https://linktr.ee/EnactusSAIT?utm_source=linktree_profile_share&ltsid=a3c724df-7e68-4b46-8d1f-8fbc6407678f',
+      subtext: 'See All Links →',
+      icon: <FiLink size={32} />, // Link Icon
+      color: 'bg-green-500 hover:bg-green-600',
+      textColor: 'text-white'
+    }
   ];
   
   return (
-    <section className="bg-gray-100 py-20">
+    <section className="bg-gray-100 py-24">
       <div className="max-w-5xl mx-auto px-4 text-center">
-        <h2 className="text-3xl font-bold text-gray-800 mb-4">Find Us Elsewhere</h2>
-        <p className="text-gray-600 mb-12">Stay up to date with our latest events and announcements.</p>
+        <h2 className="text-4xl font-extrabold text-gray-900">Direct Contact</h2>
+        <p className="text-lg text-gray-600 mt-4 mb-2">The fastest ways to connect with our team.</p>
+        <div className="h-1.5 w-24 bg-yellow-400 mx-auto mb-16"></div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {socialLinks.map((link, index) => (
@@ -117,13 +146,19 @@ const SocialsSection = () => {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -10, scale: 1.05 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true, amount: 0.5 }}
-              className={`block bg-white p-8 rounded-xl shadow-md hover:shadow-2xl hover:-translate-y-2 border-b-4 border-transparent ${link.color} transition-all duration-300`}
+              className={`block p-8 rounded-2xl shadow-lg ${link.color} ${link.textColor} transition-all duration-300`}
             >
-              <h3 className="text-xl font-bold text-gray-900">{link.name}</h3>
+              {/* Updated layout to include icons */}
+              <div className="flex flex-col items-center justify-center text-center h-full">
+                <div className="mb-5">{link.icon}</div>
+                <h3 className="text-xl font-bold">{link.name}</h3>
+                <p className="mt-2 text-sm opacity-80">{link.subtext}</p>
+              </div>
             </motion.a>
           ))}
         </div>
