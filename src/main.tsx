@@ -11,6 +11,7 @@ import './styles/globals.css';
 import Layout from './components/layouts/Layout';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
+import ProjectsPage from './pages/ProjectsPage'; // <--- 1. IMPORT ADDED
 
 // Define the routes for your application
 const router = createBrowserRouter([
@@ -26,7 +27,10 @@ const router = createBrowserRouter([
         path: 'about', // The URL will be localhost:5173/about
         element: <AboutPage />,
       },
-      // We can add more pages here later (e.g., projects, contact)
+      {
+        path: 'projects', // The URL will be localhost:5173/projects
+        element: <ProjectsPage />, // <--- 2. ROUTE ADDED
+      },
     ],
   },
 ]);
