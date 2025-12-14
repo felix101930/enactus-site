@@ -81,7 +81,8 @@ const Card = ({ i, project, progress, range, targetScale }: CardProps) => {
              <img 
                src={project.logo} 
                alt={`${project.title} logo`} 
-               className="w-full h-full object-contain drop-shadow-xl filter brightness-0 invert" 
+               className="w-full h-full object-contain drop-shadow-xl 
+               " 
                // Note: Added 'brightness-0 invert' to make logos white. 
                // Remove 'filter brightness-0 invert' if you want the original logo colors.
              />
