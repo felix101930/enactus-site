@@ -12,8 +12,7 @@ import logoCaseClash from '../assets/logos/logo-case-clash.png';
 import logoUpSkill from '../assets/logos/logo-upskill.png';
 import logoHydra from '../assets/logos/logo-hydraherder.png';
 
-// SDG Icons - FIXED IMPORTS
-// Matching your screenshot: "sdg-1.jpg", "sdg-4.jpg", etc.
+// SDG Icons
 import sdg01 from '../assets/icons/sdg/sdg-1.jpg';
 import sdg04 from '../assets/icons/sdg/sdg-4.jpg';
 import sdg06 from '../assets/icons/sdg/sdg-6.jpg';
@@ -33,10 +32,12 @@ const projects = [
     title: "CASE CLASH",
     subtitle: "BUSINESS COMPETITION",
     description: "Case Clash bridges the gap between high school theory and real-world business. We provide students with hands-on experience by partnering them with local small businesses to solve actual operational challenges.",
-    details: "STATUS: ACTIVE // SECTOR: EDUCATION",
-    color: "border-red-500",
+    // Colors
+    borderColor: "border-red-500",
     textColor: "text-red-500",
-    bgAccent: "bg-red-50",
+    glowColor: "bg-red-500",
+    boxTint: "bg-red-50", // Light tint for the text box
+    // Assets
     logo: logoCaseClash,
     layout: "left", 
     sdgs: [sdg08, sdg04, sdg10, sdg09, sdg12, sdg17]
@@ -46,10 +47,12 @@ const projects = [
     title: "PROJECT UPSKILL",
     subtitle: "FINANCIAL LITERACY",
     description: "Empowering recovery through education. UpSkill delivers tailored financial literacy and wellness workshops to individuals in addiction recovery programs, providing the tools needed for sustainable independence.",
-    details: "STATUS: ACTIVE // SECTOR: SOCIAL IMPACT",
-    color: "border-yellow-500",
+    // Colors
+    borderColor: "border-yellow-500",
     textColor: "text-yellow-600",
-    bgAccent: "bg-yellow-50",
+    glowColor: "bg-yellow-400",
+    boxTint: "bg-yellow-50",
+    // Assets
     logo: logoUpSkill,
     layout: "right",
     sdgs: [sdg01, sdg04, sdg10, sdg11, sdg16]
@@ -59,10 +62,12 @@ const projects = [
     title: "HYDRAHERDER",
     subtitle: "AI INFRASTRUCTURE",
     description: "Preventing failure before it happens. HydraHerder utilizes AI-powered predictive monitoring to detect leaks in water infrastructure early, conserving billions of liters of water annually.",
-    details: "STATUS: BETA // SECTOR: TECH & ENVIRO",
-    color: "border-blue-500",
+    // Colors
+    borderColor: "border-blue-500",
     textColor: "text-blue-500",
-    bgAccent: "bg-blue-50",
+    glowColor: "bg-blue-500",
+    boxTint: "bg-blue-50",
+    // Assets
     logo: logoHydra,
     layout: "center", 
     sdgs: [sdg13, sdg06, sdg11, sdg09]
@@ -71,22 +76,34 @@ const projects = [
 
 // --- COMPONENTS ---
 
-// 1. The "Blueprint" Background Pattern
-const BlueprintBackground = () => (
-  <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
-    {/* CSS Grid Pattern */}
+// 1. Reusable Interactive SDG Icon
+// This ensures ALL icons behave the same way
+const SDGIcon = ({ src }: { src: string }) => (
+  <motion.div 
+    whileHover={{ y: -8, scale: 1.1 }}
+    transition={{ type: "spring", stiffness: 300 }}
+    className="w-16 h-16 shadow-md rounded-md overflow-hidden bg-white cursor-pointer hover:shadow-xl hover:ring-2 hover:ring-gray-200"
+    title="Sustainable Development Goal"
+  >
+    <img src={src} alt="SDG Icon" className="w-full h-full object-cover" />
+  </motion.div>
+);
+
+// 2. The Background Pattern (Clean Graph)
+const CleanBackground = () => (
+  <div className="absolute inset-0 z-0 pointer-events-none opacity-30">
     <div 
       className="w-full h-full"
       style={{
         backgroundImage: `linear-gradient(to right, #e5e7eb 1px, transparent 1px), linear-gradient(to bottom, #e5e7eb 1px, transparent 1px)`,
-        backgroundSize: '40px 40px'
+        backgroundSize: '60px 60px'
       }}
     />
   </div>
 );
 
-// 2. The Project Section Component
-const BlueprintSection = ({ project }: { project: typeof projects[0] }) => {
+// 3. The Project Section Component
+const ProjectSection = ({ project }: { project: typeof projects[0] }) => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -95,15 +112,19 @@ const BlueprintSection = ({ project }: { project: typeof projects[0] }) => {
   
   // Parallax effect for the giant background logo
   const logoY = useTransform(scrollYProgress, [0, 1], [-50, 50]);
-  const logoRotate = useTransform(scrollYProgress, [0, 1], [-10, 10]);
+  const logoRotate = useTransform(scrollYProgress, [0, 1], [-5, 5]);
 
   return (
-    <section ref={ref} className="relative py-32 overflow-hidden min-h-[90vh] flex items-center">
+    <section ref={ref} className="relative py-32 overflow-hidden min-h-[85vh] flex items-center">
       
+      {/* CONCEPT B: AMBIENT GLOW */}
+      {/* A massive, blurred blob of color behind the content to fill white space */}
+      <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] ${project.glowColor} rounded-full blur-[120px] opacity-[0.08] pointer-events-none z-0`} />
+
       {/* GIANT FADED BACKGROUND LOGO */}
       <motion.div 
         style={{ y: logoY, rotate: logoRotate }}
-        className="absolute inset-0 z-0 flex items-center justify-center opacity-[0.04] pointer-events-none"
+        className="absolute inset-0 z-0 flex items-center justify-center opacity-[0.06] pointer-events-none"
       >
         <img src={project.logo} alt="" className="w-[800px] h-[800px] object-contain grayscale" />
       </motion.div>
@@ -112,59 +133,44 @@ const BlueprintSection = ({ project }: { project: typeof projects[0] }) => {
         
         {/* === LAYOUT VARIANT: LEFT === */}
         {project.layout === 'left' && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Title & ID Area */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            {/* Title & Description Area */}
             <div className="lg:col-span-5">
-              <div className="font-mono text-sm text-gray-400 mb-2 tracking-widest">
-                ID_{project.id} // {project.details}
-              </div>
-              <div className={`border-l-8 ${project.color} pl-6 py-2`}>
-                <h2 className="text-6xl font-bold text-gray-800 uppercase leading-none">
+              <div className={`border-l-8 ${project.borderColor} pl-8 py-4`}>
+                <h2 className="text-6xl font-extrabold text-gray-900 leading-none tracking-tight">
                   {project.title}
                 </h2>
-                <p className={`text-xl font-bold ${project.textColor} mt-2 tracking-wide uppercase`}>
+                <p className={`text-xl font-bold ${project.textColor} mt-3 uppercase tracking-wide`}>
                   {project.subtitle}
                 </p>
               </div>
               
-              {/* Dashed Connector Line */}
-              <div className="hidden lg:block h-24 w-0 border-l-2 border-dashed border-gray-300 ml-6 my-4"></div>
-
-              {/* Description Card */}
-              <div className="bg-white p-8 shadow-xl border border-gray-100 relative group transition-transform hover:-translate-y-1">
-                <div className={`absolute -top-3 -right-3 w-12 h-12 ${project.bgAccent} opacity-50 transform rotate-12`}></div>
-                
-                <p className="text-gray-600 leading-relaxed text-lg">
-                  {project.description}
-                </p>
-                <div className="mt-6 font-mono text-xs text-gray-400">
-                  // END TRANSMISSION
+              <div className="mt-8">
+                {/* CONCEPT C: CONTEXT BOX */}
+                {/* Tinted background box instead of plain white */}
+                <div className={`${project.boxTint} p-10 shadow-sm rounded-2xl border border-white/50 relative z-20`}>
+                  <p className="text-gray-800 leading-relaxed text-lg font-medium">
+                    {project.description}
+                  </p>
                 </div>
               </div>
             </div>
 
             {/* Visuals & SDGs */}
-            <div className="lg:col-span-7 flex flex-col items-center lg:items-end space-y-8">
-              {/* Logo "Stamp" */}
-              <div className="relative w-64 h-64 bg-white rounded-full flex items-center justify-center shadow-2xl border-4 border-white">
-                 <img src={project.logo} alt={project.title} className="w-40 h-40 object-contain" />
-              </div>
+            <div className="lg:col-span-7 flex flex-col items-center lg:items-end space-y-10">
+              {/* Logo Container */}
+              <motion.div 
+                whileHover={{ scale: 1.05 }}
+                className="relative w-80 h-80 bg-white rounded-full flex items-center justify-center shadow-2xl border-4 border-white z-10"
+              >
+                 <img src={project.logo} alt={project.title} className="w-56 h-56 object-contain" />
+              </motion.div>
 
-              {/* SDG Grid */}
-              <div className="bg-gray-50 p-6 rounded-lg border border-gray-200 inline-block">
-                <p className="font-mono text-xs text-center mb-4 text-gray-500">COMPLIANCE_STAMPS (SDGs)</p>
-                <div className="flex flex-wrap gap-4 justify-center max-w-md">
-                  {project.sdgs.map((sdg, idx) => (
-                    <motion.div 
-                      key={idx}
-                      whileHover={{ scale: 1.2, rotate: 5 }}
-                      className="w-16 h-16 shadow-md rounded-md overflow-hidden cursor-help bg-white"
-                      title="Sustainable Development Goal"
-                    >
-                      <img src={sdg} alt="SDG Icon" className="w-full h-full object-cover" />
-                    </motion.div>
-                  ))}
-                </div>
+              {/* SDG Row */}
+              <div className="flex flex-wrap gap-4 justify-center lg:justify-end">
+                {project.sdgs.map((sdg, idx) => (
+                  <SDGIcon key={idx} src={sdg} />
+                ))}
               </div>
             </div>
           </div>
@@ -172,107 +178,92 @@ const BlueprintSection = ({ project }: { project: typeof projects[0] }) => {
 
         {/* === LAYOUT VARIANT: RIGHT === */}
         {project.layout === 'right' && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
             
             {/* Visuals (Left side now) */}
-            <div className="lg:col-span-7 order-2 lg:order-1 flex flex-col items-center lg:items-start space-y-8">
-               <div className="relative w-64 h-64 bg-white rounded-full flex items-center justify-center shadow-2xl border-4 border-white">
-                 <img src={project.logo} alt={project.title} className="w-40 h-40 object-contain" />
-              </div>
+            <div className="lg:col-span-7 order-2 lg:order-1 flex flex-col items-center lg:items-start space-y-10">
+               <motion.div 
+                 whileHover={{ scale: 1.05 }}
+                 className="relative w-80 h-80 bg-white rounded-full flex items-center justify-center shadow-2xl border-4 border-white z-10"
+               >
+                 <img src={project.logo} alt={project.title} className="w-56 h-56 object-contain" />
+              </motion.div>
 
-              <div className="bg-gray-50 p-6 rounded-lg border border-gray-200 inline-block">
-                <p className="font-mono text-xs text-center mb-4 text-gray-500">COMPLIANCE_STAMPS (SDGs)</p>
-                <div className="flex flex-wrap gap-4 justify-center max-w-md">
-                  {project.sdgs.map((sdg, idx) => (
-                    <motion.div 
-                      key={idx}
-                      whileHover={{ scale: 1.2, rotate: -5 }}
-                      className="w-16 h-16 shadow-md rounded-md overflow-hidden cursor-help bg-white"
-                    >
-                      <img src={sdg} alt="SDG Icon" className="w-full h-full object-cover" />
-                    </motion.div>
-                  ))}
-                </div>
+              <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+                {project.sdgs.map((sdg, idx) => (
+                  <SDGIcon key={idx} src={sdg} />
+                ))}
               </div>
             </div>
 
             {/* Content */}
             <div className="lg:col-span-5 order-1 lg:order-2 text-right">
-              <div className="font-mono text-sm text-gray-400 mb-2 tracking-widest">
-                ID_{project.id} // {project.details}
-              </div>
-              <div className={`border-r-8 ${project.color} pr-6 py-2 flex flex-col items-end`}>
-                <h2 className="text-6xl font-bold text-gray-800 uppercase leading-none">
+              <div className={`border-r-8 ${project.borderColor} pr-8 py-4 flex flex-col items-end`}>
+                <h2 className="text-6xl font-extrabold text-gray-900 leading-none tracking-tight">
                   {project.title}
                 </h2>
-                <p className={`text-xl font-bold ${project.textColor} mt-2 tracking-wide uppercase`}>
+                <p className={`text-xl font-bold ${project.textColor} mt-3 uppercase tracking-wide`}>
                   {project.subtitle}
                 </p>
               </div>
 
-              <div className="hidden lg:block h-24 w-0 border-r-2 border-dashed border-gray-300 mr-6 my-4 ml-auto"></div>
-
-              <div className="bg-white p-8 shadow-xl border border-gray-100 relative text-left group transition-transform hover:-translate-y-1">
-                 <div className={`absolute -top-3 -left-3 w-12 h-12 ${project.bgAccent} opacity-50 transform -rotate-12`}></div>
-                <p className="text-gray-600 leading-relaxed text-lg">
-                  {project.description}
-                </p>
-                <div className="mt-6 font-mono text-xs text-gray-400">
-                  // END TRANSMISSION
+              <div className="mt-8">
+                {/* CONCEPT C: CONTEXT BOX */}
+                <div className={`${project.boxTint} p-10 shadow-sm rounded-2xl border border-white/50 relative text-left z-20`}>
+                  <p className="text-gray-800 leading-relaxed text-lg font-medium">
+                    {project.description}
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* === LAYOUT VARIANT: CENTER (Technical) === */}
+        {/* === LAYOUT VARIANT: CENTER (HydraHerder) === */}
         {project.layout === 'center' && (
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-5xl mx-auto text-center">
             
-            {/* Tech Header */}
-            <div className="border-b-2 border-dashed border-gray-300 pb-8 mb-12">
-               <div className="font-mono text-sm text-gray-400 mb-2 tracking-widest">
-                SYSTEM_ID: {project.id} // {project.details}
-              </div>
-              <h2 className="text-5xl md:text-7xl font-bold text-gray-800 uppercase tracking-tighter">
+            {/* Clean Header */}
+            <div className="mb-16">
+              <h2 className="text-6xl md:text-8xl font-extrabold text-gray-900 tracking-tight mb-4">
                 {project.title}
               </h2>
-              <div className={`inline-block px-4 py-1 mt-4 ${project.bgAccent} ${project.textColor} font-bold font-mono text-sm rounded-full`}>
-                :: SYSTEM ONLINE ::
-              </div>
+              <div className={`h-2 w-32 mx-auto ${project.glowColor} rounded-full`}></div>
             </div>
 
             {/* Grid Content */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 text-left">
-              <div className="bg-white p-6 shadow-lg border-t-4 border-blue-500">
-                <h4 className="font-mono text-xs font-bold text-gray-400 mb-2">INPUT // PROBLEM_DETECTED</h4>
-                <p className="text-gray-700">Water infrastructure failure is invisible until it's a disaster. Leaks waste resources and destroy property.</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16 text-left">
+              {/* CONCEPT C: CONTEXT BOXES */}
+              <div className={`${project.boxTint} p-8 shadow-sm border-t-8 ${project.borderColor} rounded-2xl`}>
+                <h4 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-3">The Challenge</h4>
+                <p className="text-gray-800 text-lg leading-relaxed font-medium">
+                  Water infrastructure failure is invisible until it's a disaster. Leaks waste critical resources and cause massive property damage.
+                </p>
               </div>
-              <div className="bg-white p-6 shadow-lg border-t-4 border-blue-500">
-                <h4 className="font-mono text-xs font-bold text-gray-400 mb-2">OUTPUT // SOLUTION_DEPLOYED</h4>
-                <p className="text-gray-700">AI-powered predictive monitoring. We detect the sound of a leak before the pipe bursts.</p>
+              <div className={`${project.boxTint} p-8 shadow-sm border-t-8 ${project.borderColor} rounded-2xl`}>
+                <h4 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-3">The Solution</h4>
+                <p className="text-gray-800 text-lg leading-relaxed font-medium">
+                  AI-powered predictive monitoring. We detect the sound frequencies of a leak before the pipe bursts, allowing for proactive maintenance.
+                </p>
               </div>
             </div>
 
             {/* Central Visual */}
-            <div className="relative inline-block">
-               <div className="w-48 h-48 bg-white rounded-full flex items-center justify-center shadow-2xl mx-auto relative z-10">
-                 <img src={project.logo} alt={project.title} className="w-32 h-32 object-contain" />
-              </div>
-              {/* Spinning Ring */}
-              <div className="absolute top-0 left-0 w-full h-full border-2 border-blue-200 rounded-full animate-spin-slow -z-0" style={{ transform: 'scale(1.2)' }}></div>
+            <div className="relative inline-block mb-12">
+               <motion.div 
+                 whileHover={{ scale: 1.1 }}
+                 className="w-64 h-64 bg-white rounded-full flex items-center justify-center shadow-2xl mx-auto relative z-10 border-4 border-white"
+               >
+                 <img src={project.logo} alt={project.title} className="w-40 h-40 object-contain" />
+              </motion.div>
+              {/* Ring Decoration */}
+              <div className={`absolute top-0 left-0 w-full h-full border-4 ${project.borderColor} opacity-20 rounded-full -z-0 transform scale-110`}></div>
             </div>
 
             {/* SDG Row */}
-             <div className="mt-12 flex justify-center gap-4">
+             <div className="flex justify-center gap-4">
                   {project.sdgs.map((sdg, idx) => (
-                    <motion.div 
-                      key={idx}
-                      whileHover={{ y: -10 }}
-                      className="w-14 h-14 bg-white shadow-sm rounded border border-gray-200"
-                    >
-                      <img src={sdg} alt="SDG" className="w-full h-full object-cover" />
-                    </motion.div>
+                    <SDGIcon key={idx} src={sdg} />
                   ))}
              </div>
 
@@ -284,34 +275,33 @@ const BlueprintSection = ({ project }: { project: typeof projects[0] }) => {
   );
 };
 
-// 3. Main Page Component
+// 4. Main Page Component
 function ProjectsPage() {
   return (
     <main className="bg-gray-50 min-h-screen relative">
       <PageHeader 
-        pageName="Our Blueprint" 
-        title="Engineering Social Change." 
+        pageName="Our Work" 
+        title="Innovation in Action." 
         backgroundImage={headerBg} 
       />
 
       <div className="relative">
-        <BlueprintBackground />
+        <CleanBackground />
         
         {/* Render Sections */}
-        {projects.map((proj) => (
+        {projects.map((proj, index) => (
           <div key={proj.id} id={proj.title.toLowerCase().replace(/\s/g, '-')}>
-             <BlueprintSection project={proj} />
-             {/* Section Divider */}
-             <div className="max-w-7xl mx-auto h-px bg-gray-300 w-full relative">
-                <span className="absolute left-1/2 -top-2 bg-gray-50 px-2 text-xs font-mono text-gray-400">// SECTION_BREAK //</span>
-             </div>
+             <ProjectSection project={proj} />
+             
+             {/* Visual Separator */}
+             {index < projects.length - 1 && (
+               <div className="max-w-2xl mx-auto h-px bg-gray-200" />
+             )}
           </div>
         ))}
         
-        {/* Final Footer Spacer */}
-        <div className="h-24 flex items-center justify-center font-mono text-xs text-gray-400">
-           [ END OF BLUEPRINT ]
-        </div>
+        {/* Footer Spacer */}
+        <div className="h-24"></div>
       </div>
     </main>
   );
