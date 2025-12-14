@@ -1,4 +1,6 @@
-// src/components/sections/PartnersSection.tsx
+// src/components/sections/home/PartnersSection.tsx
+
+import Marquee from 'react-fast-marquee'; // 1. IMPORT Marquee
 
 // Import all the partner logos we have
 import logoSait from '../../../assets/logos/logo-sait.png';
@@ -23,17 +25,26 @@ function PartnersSection() {
           <span className="text-yellow-400">Together,</span> we make a greater impact.
         </h2>
 
-        {/* Logos Grid */}
-        <div className="mt-16 grid grid-cols-2 sm:grid-cols-3 gap-y-12 gap-x-8 items-center">
-          {partners.map((partner) => (
-            <div key={partner.name}>
-              <img
-                src={partner.logo}
-                alt={`${partner.name} logo`}
-                className="max-h-16 mx-auto" // Control the logo size here
-              />
-            </div>
-          ))}
+        {/* 2. REPLACE the grid with the Marquee component */}
+        <div className="mt-16">
+          <Marquee
+            gradient={true}
+            gradientColor="#FFFFFF" // Match the section's background color
+            gradientWidth={50}
+            speed={40}
+            autoFill={true} // This ensures a seamless loop even with few items
+            pauseOnHover={true}
+          >
+            {partners.map((partner) => (
+              <div key={partner.name} className="mx-12"> {/* Add margin between logos */}
+                <img
+                  src={partner.logo}
+                  alt={`${partner.name} logo`}
+                  className="max-h-16" // Control the logo size
+                />
+              </div>
+            ))}
+          </Marquee>
         </div>
 
       </div>
