@@ -6,13 +6,12 @@ import MobileMenu from './MobileMenu';
 import logoBlack from '../../assets/logos/logo-enactus-sait.png';
 import logoWhite from '../../assets/logos/logo-enactus-sait-white.png';
 
-// UPDATED LINKS
 const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'About Us', href: '/about' },
-  { name: 'Projects', href: '/projects' }, // <--- Fixed Link
-  { name: 'Events', href: '#' },
-  { name: 'Contact', href: '#' },
+  { name: 'Projects', href: '/projects' },
+  { name: 'Events', href: '#' }, // Keeping as # for now as requested
+  { name: 'Contact', href: '/contact' }, // <--- Fixed Link
 ];
 
 function Navbar() {
@@ -78,7 +77,13 @@ function Navbar() {
             
             <div className="flex items-center">
               <div className="hidden md:block">
-                <a href="#" className="px-6 py-2 bg-yellow-400 text-black font-bold rounded-md transition-all duration-300 hover:bg-yellow-500 hover:scale-105 hover:shadow-lg active:scale-95">
+                {/* Updated Follow Now Button to Linktree */}
+                <a 
+                  href="https://linktr.ee/EnactusSAIT?utm_source=linktree_profile_share&ltsid=a3c724df-7e68-4b46-8d1f-8fbc6407678f" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-2 bg-yellow-400 text-black font-bold rounded-md transition-all duration-300 hover:bg-yellow-500 hover:scale-105 hover:shadow-lg active:scale-95"
+                >
                   Follow Now
                 </a>
               </div>

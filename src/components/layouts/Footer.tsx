@@ -40,9 +40,10 @@ function Footer() {
           <div>
             <h3 className="font-bold text-gray-800 mb-4">Socials</h3>
             <ul className="space-y-2">
-              <li><a href="https://www.youtube.com/@enactussait" className="text-sm underline hover:text-yellow-500 transition-colors">Youtube</a></li>
-              <li><a href="https://www.instagram.com/enactussait" className="text-sm underline hover:text-yellow-500 transition-colors">Instagram</a></li>
-              <li><a href="https://www.linkedin.com/company/enactus-sait/posts/?feedView=all" className="text-sm underline hover:text-yellow-500 transition-colors">LinkedIn</a></li>
+              {/* Updated Links */}
+              <li><a href="https://www.youtube.com/@enactussait" target="_blank" rel="noopener noreferrer" className="text-sm underline hover:text-yellow-500 transition-colors">Youtube</a></li>
+              <li><a href="https://www.instagram.com/EnactusSAIT" target="_blank" rel="noopener noreferrer" className="text-sm underline hover:text-yellow-500 transition-colors">Instagram</a></li>
+              <li><a href="https://www.linkedin.com/company/enactus-sait/" target="_blank" rel="noopener noreferrer" className="text-sm underline hover:text-yellow-500 transition-colors">LinkedIn</a></li>
             </ul>
           </div>
 
@@ -52,7 +53,6 @@ function Footer() {
             <p className="text-sm leading-relaxed">
               For any inquiries, questions or commendations, please mail at:
             </p>
-            {/* This is a duplicate of the mail link, but it matches the design file's text */}
              <a href="mailto:enactus.saitpolytechnic@gmail.com" className="text-sm underline hover:text-yellow-500 transition-colors">
                 enactus.saitpolytechnic@gmail.com
               </a>
