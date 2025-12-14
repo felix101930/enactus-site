@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { FaUserCircle } from 'react-icons/fa';
-import { useRef } from 'react';
 
 // A single "Atom" node component
 const Atom = ({ 
@@ -39,7 +38,7 @@ const Atom = ({
           {member.name.split(' ')[0]} {/* First Name Only for cleanliness */}
         </p>
         <p className="text-gray-500 leading-none mt-1" style={{ fontSize: Math.max(7, size * 0.1) }}>
-          {member.role.split(' ').slice(0, 1).join('')}... {/* Short role */}
+          {member.role.split(' ').slice(0, 1).join('')}...
         </p>
       </div>
     </motion.div>
@@ -63,8 +62,6 @@ const Bond = ({ x1, y1, x2, y2 }: { x1: number, y1: number, x2: number, y2: numb
 );
 
 const MolecularView = ({ data }: { data: any }) => {
-  const containerRef = useRef(null);
-
   // --- CONFIGURATION POSITIONS ---
   // Center
   const posPres1 = { x: -60, y: 0 };
@@ -85,10 +82,7 @@ const MolecularView = ({ data }: { data: any }) => {
   ];
 
   return (
-    <div 
-      ref={containerRef}
-      className="relative w-full h-[600px] bg-white rounded-3xl shadow-inner overflow-hidden border border-gray-200"
-    >
+    <div className="relative w-full h-[600px] bg-white rounded-3xl shadow-inner overflow-hidden border border-gray-200">
       <p className="absolute top-4 left-4 text-gray-400 text-sm font-mono">Interactive View: Drag nodes to play</p>
       
       {/* SVG Layer for Bonds (Behind nodes) */}

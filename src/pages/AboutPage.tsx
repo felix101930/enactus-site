@@ -5,7 +5,7 @@ import FadeIn from '../components/common/FadeIn';
 import PageHeader from '../components/sections/shared/PageHeader';
 import WhoWeAreSection from '../components/sections/about/WhoWeAreSection';
 import OurMissionSection from '../components/sections/about/OurMissionSection';
-import TeamSectionAbout from '../components/sections/about/TeamSectionAbout'; // This should now point to our new showcase
+import TeamSectionAbout from '../components/sections/about/TeamSectionAbout'; 
 import aboutHeroBg from '../assets/backgrounds/background-about-hero.png';
 
 function AboutPage() {
@@ -17,14 +17,17 @@ function AboutPage() {
         backgroundImage={aboutHeroBg}
       />
       
+      {/* 1. Team Structure MOVED TO TOP for immediate engagement */}
+      <FadeIn>
+        <TeamSectionAbout />
+      </FadeIn>
+
       <FadeIn>
         <WhoWeAreSection />
       </FadeIn>
+      
       <FadeIn>
         <OurMissionSection />
-      </FadeIn>
-      <FadeIn>
-        <TeamSectionAbout />
       </FadeIn>
     </main>
   );

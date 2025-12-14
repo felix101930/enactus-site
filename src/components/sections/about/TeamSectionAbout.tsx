@@ -2,13 +2,12 @@
 
 import { useState } from 'react';
 
-// Import the three NEW view components
+// Import the 3 Final Views
 import MolecularView from './org-chart-views/MolecularView';
-import DualEngineView from './org-chart-views/DualEngineView';
-import DeckView from './org-chart-views/DeckView';
+import HierarchyView from './org-chart-views/HierarchyView';
+import InteractiveDeckView from './org-chart-views/InteractiveDeckView';
 
-// --- UNIFIED TEAM DATA ---
-// Keeping the same data structure for consistency
+// --- TEAM DATA ---
 const teamData = {
   coPresidents: [
     { name: 'Keshav Sharma', role: 'Co-President' },
@@ -36,14 +35,14 @@ const teamData = {
   }
 };
 
-type ViewType = 'molecule' | 'dual-engine' | 'deck';
+type ViewType = 'molecular' | 'hierarchy' | 'deck';
 
 function TeamSectionAbout() {
-  const [currentView, setCurrentView] = useState<ViewType>('molecule');
+  const [currentView, setCurrentView] = useState<ViewType>('hierarchy');
 
   const viewOptions: { id: ViewType; name: string }[] = [
-    { id: 'molecule', name: 'Molecular Network' },
-    { id: 'dual-engine', name: 'Dual Engine' },
+    { id: 'molecular', name: 'Molecular Network' },
+    { id: 'hierarchy', name: 'Hierarchy Structure' },
     { id: 'deck', name: 'Interactive Deck' },
   ];
   
@@ -54,7 +53,7 @@ function TeamSectionAbout() {
         {/* Section Header */}
         <h2 className="text-5xl md:text-6xl font-bold text-gray-800">Team Structure</h2>
         <p className="text-lg text-gray-600 mt-4 mb-12">
-          Explore our organization through different lenses.
+          Explore our organization structure.
         </p>
         
         {/* View Switcher UI */}
@@ -74,11 +73,11 @@ function TeamSectionAbout() {
           ))}
         </div>
 
-        {/* Conditional Rendering of the selected view */}
+        {/* Render View */}
         <div className="transition-all duration-500 ease-in-out">
-          {currentView === 'molecule' && <MolecularView data={teamData} />}
-          {currentView === 'dual-engine' && <DualEngineView data={teamData} />}
-          {currentView === 'deck' && <DeckView data={teamData} />}
+          {currentView === 'molecular' && <MolecularView data={teamData} />}
+          {currentView === 'hierarchy' && <HierarchyView data={teamData} />}
+          {currentView === 'deck' && <InteractiveDeckView data={teamData} />}
         </div>
 
       </div>
