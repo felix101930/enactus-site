@@ -1,5 +1,6 @@
 // src/components/sections/home/AboutIntroSection.tsx
 
+import { Link } from 'react-router-dom'; // 1. Import Link
 import aboutImage from '../../../assets/images/image-about-intro.png';
 
 function AboutIntroSection() {
@@ -19,10 +20,14 @@ function AboutIntroSection() {
             teamwork, and leadership, Enactus SAIT provides students with opportunities to
             develop essential skills while making a meaningful difference.
           </p>
-          {/* ADDED active:scale-95 */}
-          <a href="#" className="inline-block px-8 py-3 bg-gray-800 text-white font-bold rounded-md transition-all duration-300 hover:bg-gray-900 hover:scale-105 hover:shadow-lg active:scale-95">
+          
+          {/* 2. Updated Button to use Link */}
+          <Link 
+            to="/about" 
+            className="inline-block px-8 py-3 bg-gray-800 text-white font-bold rounded-md transition-all duration-300 hover:bg-gray-900 hover:scale-105 hover:shadow-lg active:scale-95"
+          >
             About Us
-          </a>
+          </Link>
         </div>
         <div>
           <img src={aboutImage} alt="Enactus SAIT community event" className="w-full h-auto rounded-lg shadow-lg" />

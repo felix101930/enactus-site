@@ -1,5 +1,7 @@
 // src/components/sections/home/TeamSection.tsx
 
+import { Link } from 'react-router-dom'; // 1. Import Link
+
 function TeamSection() {
   return (
     <section className="bg-white py-20 px-4 text-center">
@@ -13,11 +15,11 @@ function TeamSection() {
           Meet the passionate individuals behind our initiatives!
         </p>
 
-        {/* Team Cards Grid - REVISED */}
+        {/* Team Cards Grid - REVISED LINKS */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           
-          {/* Student Leaders Card */}
-          <a href="#" className="group block transition-all duration-300 hover:shadow-xl">
+          {/* Student Leaders Card -> Links to About Page (Structure) */}
+          <Link to="/about" className="group block transition-all duration-300 hover:shadow-xl">
             <div className="relative overflow-hidden rounded-lg">
               <img
                 src="https://placehold.co/500x550/EFEFEF/333333?text=Student+Leader"
@@ -28,10 +30,11 @@ function TeamSection() {
                 <p className="text-xl font-bold text-black">Student Leaders</p>
               </div>
             </div>
-          </a>
+          </Link>
 
-          {/* Faculty Advisors Card */}
-          <a href="#" className="group block transition-all duration-300 hover:shadow-xl">
+          {/* Faculty Advisors Card -> Links to About Page #faculty */}
+          {/* Note: We will build the #faculty section in the next phase */}
+          <Link to="/about#faculty" className="group block transition-all duration-300 hover:shadow-xl">
             <div className="relative overflow-hidden rounded-lg">
               <img
                 src="https://placehold.co/500x550/EFEFEF/333333?text=Faculty+Advisor"
@@ -42,7 +45,7 @@ function TeamSection() {
                 <p className="text-xl font-bold text-black">Faculty Advisors</p>
               </div>
             </div>
-          </a>
+          </Link>
 
         </div>
       </div>

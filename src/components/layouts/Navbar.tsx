@@ -10,8 +10,8 @@ const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'About Us', href: '/about' },
   { name: 'Projects', href: '/projects' },
-  { name: 'Events', href: '#' }, // Keeping as # for now as requested
-  { name: 'Contact', href: '/contact' }, // <--- Fixed Link
+  // Events removed as requested
+  { name: 'Contact', href: '/contact' },
 ];
 
 function Navbar() {
@@ -56,28 +56,22 @@ function Navbar() {
             </div>
 
             <div className="hidden md:flex md:items-center md:space-x-8">
-              {navLinks.map((link) => {
-                if (link.href === '#') {
-                  return <a key={link.name} href={link.href} className={`font-medium transition-colors hover:text-yellow-500 ${linkColor}`}>{link.name}</a>;
-                }
-                return (
-                  <NavLink
-                    key={link.name}
-                    to={link.href}
-                    className={({ isActive }) =>
-                      `relative font-medium transition-colors hover:text-yellow-500 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-full after:bg-current after:origin-center after:transform after:scale-x-0 after:transition-transform after:duration-300
-                      ${isActive ? `${activeLinkColor} after:scale-x-100` : linkColor}`
-                    }
-                  >
-                    {link.name}
-                  </NavLink>
-                );
-              })}
+              {navLinks.map((link) => (
+                <NavLink
+                  key={link.name}
+                  to={link.href}
+                  className={({ isActive }) =>
+                    `relative font-medium transition-colors hover:text-yellow-500 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-full after:bg-current after:origin-center after:transform after:scale-x-0 after:transition-transform after:duration-300
+                    ${isActive ? `${activeLinkColor} after:scale-x-100` : linkColor}`
+                  }
+                >
+                  {link.name}
+                </NavLink>
+              ))}
             </div>
             
             <div className="flex items-center">
               <div className="hidden md:block">
-                {/* Updated Follow Now Button to Linktree */}
                 <a 
                   href="https://linktr.ee/EnactusSAIT?utm_source=linktree_profile_share&ltsid=a3c724df-7e68-4b46-8d1f-8fbc6407678f" 
                   target="_blank"
