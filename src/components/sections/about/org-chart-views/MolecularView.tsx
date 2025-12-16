@@ -1,129 +1,151 @@
 // src/components/sections/about/org-chart-views/MolecularView.tsx
 
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform, MotionValue } from 'framer-motion';
 import { FaUserCircle } from 'react-icons/fa';
 
-// A single "Atom" node component
+// --- COMPONENTS ---
+
+// 1. Dynamic Line (Sticks to nodes)
+const Connector = ({ x1, y1, x2, y2 }: { x1: MotionValue<number>, y1: MotionValue<number>, x2: MotionValue<number>, y2: MotionValue<number> }) => {
+  // Map motion values (offsets) to SVG coordinates. Center is roughly 50% of container.
+  // We assume container is relative, and we transform the drag offset (x,y) to line coords.
+  // To make this simple without complex math: We use the motion values directly as translation.
+  
+  // Since we can't easily map 'drag x' to 'svg line x' perfectly without container refs,
+  // We will use a visual trick: The line is also a motion component that updates its x1/y1.
+  
+  // Actually, easiest way in Framer Motion:
+  // We render lines as absolute divs with width/rotation? No, SVG is best.
+  // We offset the SVG center.
+  
+  const CENTER_X = '50%';
+  const CENTER_Y = '50%';
+  
+  const x1Px = useTransform(x1, v => `calc(${CENTER_X} + ${v}px)`);
+  const y1Px = useTransform(y1, v => `calc(${CENTER_Y} + ${v}px)`);
+  const x2Px = useTransform(x2, v => `calc(${CENTER_X} + ${v}px)`);
+  const y2Px = useTransform(y2, v => `calc(${CENTER_Y} + ${v}px)`);
+
+  return (
+    <motion.line
+      x1={x1Px} y1={y1Px} x2={x2Px} y2={y2Px}
+      stroke="#94a3b8" // Visible Slate-400
+      strokeWidth="3"
+      strokeLinecap="round"
+    />
+  );
+};
+
+// 2. Node Atom
 const Atom = ({ 
   member, 
-  size = 80, 
-  color = "bg-white", 
   x, 
   y, 
-  className = "" 
+  size = 100, 
+  color = "bg-white"
 }: { 
-  member: any; 
-  size?: number; 
-  color?: string; 
-  x: number; 
-  y: number; 
-  className?: string 
+  member: any, 
+  x: MotionValue<number>, 
+  y: MotionValue<number>, 
+  size?: number, 
+  color?: string 
 }) => {
   return (
     <motion.div
       drag
-      dragConstraints={{ left: -50, right: 50, top: -50, bottom: 50 }} // Restrict drag distance
-      dragElastic={0.2} // Springy feel
+      dragConstraints={{ left: -350, right: 350, top: -300, bottom: 300 }}
+      dragElastic={0.1}
+      style={{ x, y, width: size, height: size, marginLeft: -size/2, marginTop: -size/2 }}
       whileHover={{ scale: 1.1, zIndex: 50, cursor: 'grab' }}
       whileTap={{ scale: 0.95, cursor: 'grabbing' }}
-      initial={{ opacity: 0, scale: 0 }}
-      animate={{ opacity: 1, scale: 1, x, y }}
-      transition={{ type: "spring", stiffness: 100, damping: 10 }}
-      className={`absolute flex flex-col items-center justify-center rounded-full shadow-lg border-2 border-gray-100 ${color} ${className}`}
-      style={{ width: size, height: size, left: '50%', top: '50%', marginLeft: -size/2, marginTop: -size/2 }}
+      className={`absolute top-1/2 left-1/2 rounded-full shadow-lg border-4 border-white flex items-center justify-center ${color}`}
     >
-      <FaUserCircle className="text-gray-700 opacity-50 mb-1" size={size * 0.3} />
-      <div className="text-center px-2 pointer-events-none">
-        <p className="font-bold text-gray-900 leading-none" style={{ fontSize: Math.max(8, size * 0.12) }}>
-          {member.name.split(' ')[0]} {/* First Name Only for cleanliness */}
+      <FaUserCircle className="text-gray-700 opacity-60" size={size * 0.4} />
+      
+      {/* TEXT FLOATING OUTSIDE THE CIRCLE */}
+      <div className="absolute top-[110%] left-1/2 -translate-x-1/2 text-center w-40 pointer-events-none">
+        <p className="font-bold text-gray-900 leading-none text-sm shadow-sm bg-white/50 backdrop-blur-sm rounded px-1 inline-block">
+          {member.name}
         </p>
-        <p className="text-gray-500 leading-none mt-1" style={{ fontSize: Math.max(7, size * 0.1) }}>
-          {member.role.split(' ').slice(0, 1).join('')}...
+        <p className="text-xs text-gray-600 font-bold uppercase mt-1 bg-white/50 backdrop-blur-sm rounded px-1 inline-block">
+          {member.role}
         </p>
       </div>
     </motion.div>
   );
-};
-
-// SVG Connector Line
-const Bond = ({ x1, y1, x2, y2 }: { x1: number, y1: number, x2: number, y2: number }) => (
-  <motion.line
-    initial={{ pathLength: 0, opacity: 0 }}
-    animate={{ pathLength: 1, opacity: 0.3 }}
-    transition={{ duration: 1, delay: 0.5 }}
-    x1={`calc(50% + ${x1}px)`}
-    y1={`calc(50% + ${y1}px)`}
-    x2={`calc(50% + ${x2}px)`}
-    y2={`calc(50% + ${y2}px)`}
-    stroke="black"
-    strokeWidth="2"
-    strokeDasharray="4 4" // Dashed line for "atomic bond" look
-  />
-);
+}
 
 const MolecularView = ({ data }: { data: any }) => {
-  // --- CONFIGURATION POSITIONS ---
-  // Center
-  const posPres1 = { x: -60, y: 0 };
-  const posPres2 = { x: 60, y: 0 };
+  // --- STATE: Motion Values (This enables the Sticky Lines) ---
   
-  // Operations Cluster (Top Leftish)
-  const posOpVP = { x: -250, y: -100 };
-  const posOpDirs = [
-    { x: -380, y: -180 }, { x: -380, y: -20 }, 
-    { x: -150, y: -220 }, { x: -250, y: -250 }, { x: -120, y: -120 }
-  ];
+  // Leadership
+  const p1X = useMotionValue(-70); const p1Y = useMotionValue(0);
+  const p2X = useMotionValue(70);  const p2Y = useMotionValue(0);
 
-  // Projects Cluster (Bottom Rightish)
-  const posProjVP = { x: 250, y: 100 };
-  const posProjMans = [
-    { x: 380, y: 180 }, { x: 380, y: 20 }, 
-    { x: 150, y: 220 }, { x: 250, y: 250 }, { x: 120, y: 120 }
-  ];
+  // Operations Cluster (Left)
+  const opVpX = useMotionValue(-280); const opVpY = useMotionValue(-60);
+  const d1X = useMotionValue(-400); const d1Y = useMotionValue(-150);
+  const d2X = useMotionValue(-420); const d2Y = useMotionValue(20);
+  const d3X = useMotionValue(-350); const d3Y = useMotionValue(130);
+  const d4X = useMotionValue(-200); const d4Y = useMotionValue(-180);
+  const d5X = useMotionValue(-180); const d5Y = useMotionValue(110);
+
+  // Projects Cluster (Right)
+  const prVpX = useMotionValue(280); const prVpY = useMotionValue(60);
+  const m1X = useMotionValue(400); const m1Y = useMotionValue(150);
+  const m2X = useMotionValue(420); const m2Y = useMotionValue(-20);
+  const m3X = useMotionValue(350); const m3Y = useMotionValue(-130);
+  const m4X = useMotionValue(200); const m4Y = useMotionValue(180);
+  const m5X = useMotionValue(180); const m5Y = useMotionValue(-110);
 
   return (
-    <div className="relative w-full h-[600px] bg-white rounded-3xl shadow-inner overflow-hidden border border-gray-200">
-      <p className="absolute top-4 left-4 text-gray-400 text-sm font-mono">Interactive View: Drag nodes to play</p>
-      
-      {/* SVG Layer for Bonds (Behind nodes) */}
-      <svg className="absolute inset-0 w-full h-full pointer-events-none">
-        {/* Pres to Pres */}
-        <Bond x1={posPres1.x} y1={posPres1.y} x2={posPres2.x} y2={posPres2.y} />
-        
-        {/* Pres 1 to Ops VP */}
-        <Bond x1={posPres1.x} y1={posPres1.y} x2={posOpVP.x} y2={posOpVP.y} />
-        
-        {/* Pres 2 to Proj VP */}
-        <Bond x1={posPres2.x} y1={posPres2.y} x2={posProjVP.x} y2={posProjVP.y} />
+    <div className="relative w-full h-[750px] bg-gray-50 overflow-visible">
+      <div className="absolute top-4 left-4 text-xs font-mono text-gray-400 uppercase tracking-widest bg-white/50 px-2 py-1 rounded">
+        Drag nodes to reorganize
+      </div>
 
-        {/* Ops VP to Directors */}
-        {data.operations.directors.map((_: any, i: number) => (
-          <Bond key={`op-${i}`} x1={posOpVP.x} y1={posOpVP.y} x2={posOpDirs[i].x} y2={posOpDirs[i].y} />
-        ))}
+      {/* SVG LAYER (Behind Nodes) */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible">
+        {/* Leadership Bonds */}
+        <Connector x1={p1X} y1={p1Y} x2={p2X} y2={p2Y} />
+        <Connector x1={p1X} y1={p1Y} x2={opVpX} y2={opVpY} />
+        <Connector x1={p2X} y1={p2Y} x2={prVpX} y2={prVpY} />
 
-        {/* Proj VP to Managers */}
-        {data.projects.managers.map((_: any, i: number) => (
-          <Bond key={`pr-${i}`} x1={posProjVP.x} y1={posProjVP.y} x2={posProjMans[i].x} y2={posProjMans[i].y} />
-        ))}
+        {/* Ops Bonds */}
+        <Connector x1={opVpX} y1={opVpY} x2={d1X} y2={d1Y} />
+        <Connector x1={opVpX} y1={opVpY} x2={d2X} y2={d2Y} />
+        <Connector x1={opVpX} y1={opVpY} x2={d3X} y2={d3Y} />
+        <Connector x1={opVpX} y1={opVpY} x2={d4X} y2={d4Y} />
+        <Connector x1={opVpX} y1={opVpY} x2={d5X} y2={d5Y} />
+
+        {/* Projects Bonds */}
+        <Connector x1={prVpX} y1={prVpY} x2={m1X} y2={m1Y} />
+        <Connector x1={prVpX} y1={prVpY} x2={m2X} y2={m2Y} />
+        <Connector x1={prVpX} y1={prVpY} x2={m3X} y2={m3Y} />
+        <Connector x1={prVpX} y1={prVpY} x2={m4X} y2={m4Y} />
+        <Connector x1={prVpX} y1={prVpY} x2={m5X} y2={m5Y} />
       </svg>
 
-      {/* Nodes Layer */}
-      
-      {/* Presidents */}
-      <Atom member={data.coPresidents[0]} x={posPres1.x} y={posPres1.y} size={110} color="bg-yellow-400 z-20" />
-      <Atom member={data.coPresidents[1]} x={posPres2.x} y={posPres2.y} size={110} color="bg-yellow-400 z-20" />
+      {/* NODES LAYER (Z-10) */}
+      <Atom x={p1X} y={p1Y} member={data.coPresidents[0]} size={130} color="bg-yellow-400 z-30" />
+      <Atom x={p2X} y={p2Y} member={data.coPresidents[1]} size={130} color="bg-yellow-400 z-30" />
 
-      {/* Operations Team */}
-      <Atom member={data.operations.vp} x={posOpVP.x} y={posOpVP.y} size={90} color="bg-gray-100 z-10" />
-      {data.operations.directors.map((d: any, i: number) => (
-        <Atom key={d.name} member={d} x={posOpDirs[i].x} y={posOpDirs[i].y} size={70} />
-      ))}
+      <Atom x={opVpX} y={opVpY} member={data.operations.vp} size={110} color="bg-white z-20" />
+      <Atom x={prVpX} y={prVpY} member={data.projects.vp} size={110} color="bg-white z-20" />
 
-      {/* Projects Team */}
-      <Atom member={data.projects.vp} x={posProjVP.x} y={posProjVP.y} size={90} color="bg-gray-100 z-10" />
-      {data.projects.managers.map((m: any, i: number) => (
-        <Atom key={m.name} member={m} x={posProjMans[i].x} y={posProjMans[i].y} size={70} />
-      ))}
+      {/* Directors */}
+      <Atom x={d1X} y={d1Y} member={data.operations.directors[0]} size={90} />
+      <Atom x={d2X} y={d2Y} member={data.operations.directors[1]} size={90} />
+      <Atom x={d3X} y={d3Y} member={data.operations.directors[2]} size={90} />
+      <Atom x={d4X} y={d4Y} member={data.operations.directors[3]} size={90} />
+      <Atom x={d5X} y={d5Y} member={data.operations.directors[4]} size={90} />
+
+      {/* Managers */}
+      <Atom x={m1X} y={m1Y} member={data.projects.managers[0]} size={90} />
+      <Atom x={m2X} y={m2Y} member={data.projects.managers[1]} size={90} />
+      <Atom x={m3X} y={m3Y} member={data.projects.managers[2]} size={90} />
+      <Atom x={m4X} y={m4Y} member={data.projects.managers[3]} size={90} />
+      <Atom x={m5X} y={m5Y} member={data.projects.managers[4]} size={90} />
 
     </div>
   );

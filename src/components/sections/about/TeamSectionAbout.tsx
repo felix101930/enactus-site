@@ -38,7 +38,7 @@ const teamData = {
 type ViewType = 'molecular' | 'hierarchy' | 'deck';
 
 function TeamSectionAbout() {
-  const [currentView, setCurrentView] = useState<ViewType>('hierarchy');
+  const [currentView, setCurrentView] = useState<ViewType>('molecular');
 
   const viewOptions: { id: ViewType; name: string }[] = [
     { id: 'molecular', name: 'Molecular Network' },
@@ -47,25 +47,25 @@ function TeamSectionAbout() {
   ];
   
   return (
-    <section className="bg-gray-50 py-20 px-4 text-center overflow-hidden">
-      <div className="max-w-7xl mx-auto">
+    <section className="bg-white py-16 px-4 text-center overflow-hidden">
+      <div className="max-w-[1400px] mx-auto"> 
 
         {/* Section Header */}
-        <h2 className="text-5xl md:text-6xl font-bold text-gray-800">Team Structure</h2>
-        <p className="text-lg text-gray-600 mt-4 mb-12">
-          Explore our organization structure.
+        <h2 className="text-5xl font-bold text-gray-900 mb-6">Team Structure</h2>
+        <p className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
+          Explore our organization. Interact with the models below to see how we connect.
         </p>
         
         {/* View Switcher UI */}
-        <div className="mb-12 p-1 bg-white border border-gray-200 rounded-full inline-flex shadow-sm">
+        <div className="mb-12 p-1.5 bg-gray-100 border border-gray-200 rounded-full inline-flex shadow-inner">
           {viewOptions.map(option => (
             <button
               key={option.id}
               onClick={() => setCurrentView(option.id)}
-              className={`px-6 py-2 rounded-full text-sm font-bold transition-all duration-300 ${
+              className={`px-6 py-2 rounded-full text-base font-bold transition-all duration-300 ${
                 currentView === option.id 
-                ? 'bg-yellow-400 text-black shadow-md transform scale-105' 
-                : 'bg-transparent text-gray-500 hover:text-gray-900'
+                ? 'bg-yellow-400 text-black shadow-lg transform scale-105' 
+                : 'bg-transparent text-gray-500 hover:text-gray-900 hover:bg-gray-200'
               }`}
             >
               {option.name}
@@ -73,11 +73,13 @@ function TeamSectionAbout() {
           ))}
         </div>
 
-        {/* Render View */}
-        <div className="transition-all duration-500 ease-in-out">
-          {currentView === 'molecular' && <MolecularView data={teamData} />}
-          {currentView === 'hierarchy' && <HierarchyView data={teamData} />}
-          {currentView === 'deck' && <InteractiveDeckView data={teamData} />}
+        {/* Render View - Fixed Height Container */}
+        <div className="border border-gray-200 rounded-[2.5rem] shadow-2xl bg-gray-50 overflow-hidden relative">
+          <div className="transition-all duration-500 ease-in-out min-h-[750px]">
+            {currentView === 'molecular' && <MolecularView data={teamData} />}
+            {currentView === 'hierarchy' && <HierarchyView data={teamData} />}
+            {currentView === 'deck' && <InteractiveDeckView data={teamData} />}
+          </div>
         </div>
 
       </div>
