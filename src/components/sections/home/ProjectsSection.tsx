@@ -2,12 +2,25 @@
 
 import { useRef } from 'react';
 import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
+import { Link } from 'react-router-dom'; // Added Link for navigation
 
 // IMPORT REAL LOGOS
-// Note: Adjusting paths based on your folder structure: src/components/sections/home -> src/assets/logos
 import logoCaseClash from '../../../assets/logos/logo-case-clash.png';
 import logoUpSkill from '../../../assets/logos/logo-upskill.png';
 import logoHydra from '../../../assets/logos/logo-hydraherder.png';
+
+// IMPORT SDG ICONS
+import sdg01 from '../../../assets/icons/sdg/sdg-1.jpg';
+import sdg04 from '../../../assets/icons/sdg/sdg-4.jpg';
+import sdg06 from '../../../assets/icons/sdg/sdg-6.jpg';
+import sdg08 from '../../../assets/icons/sdg/sdg-8.jpg';
+import sdg09 from '../../../assets/icons/sdg/sdg-9.jpg';
+import sdg10 from '../../../assets/icons/sdg/sdg-10.jpg';
+import sdg11 from '../../../assets/icons/sdg/sdg-11.jpg';
+import sdg12 from '../../../assets/icons/sdg/sdg-12.jpg';
+import sdg13 from '../../../assets/icons/sdg/sdg-13.jpg';
+import sdg16 from '../../../assets/icons/sdg/sdg-16.jpg';
+import sdg17 from '../../../assets/icons/sdg/sdg-17.jpg';
 
 // --- DATA ---
 const projects = [
@@ -18,7 +31,10 @@ const projects = [
     description: "Provides high school students with hands-on business experience while supporting local small businesses with fresh perspectives and solutions.",
     color: "bg-red-500", 
     logo: logoCaseClash, 
-    sdgs: ["8", "4", "10", "9", "12", "17"]
+    // Updated to use Real Image imports
+    sdgs: [sdg08, sdg04, sdg10, sdg09, sdg12, sdg17],
+    // Added specific hash link
+    link: "/projects#case-clash"
   },
   {
     id: 2,
@@ -27,7 +43,8 @@ const projects = [
     description: "Delivers financial literacy and wellness resource workshops to individuals in addictions recovery programs in Calgary.",
     color: "bg-yellow-400", 
     logo: logoUpSkill,
-    sdgs: ["1", "4", "10", "11", "16"]
+    sdgs: [sdg01, sdg04, sdg10, sdg11, sdg16],
+    link: "/projects#project-upskill"
   },
   {
     id: 3,
@@ -36,13 +53,13 @@ const projects = [
     description: "Prevents water infrastructure failures through AI-powered predictive monitoring. By detecting leaks early, it conserves billions of liters annually.",
     color: "bg-blue-500", 
     logo: logoHydra,
-    sdgs: ["13", "6", "11", "9"]
+    sdgs: [sdg13, sdg06, sdg11, sdg09],
+    link: "/projects#hydraherder"
   }
 ];
 
 // --- COMPONENTS ---
 
-// 1. The Individual Card Component
 interface CardProps {
   i: number;
   project: typeof projects[0];
@@ -76,15 +93,12 @@ const Card = ({ i, project, progress, range, targetScale }: CardProps) => {
             className="absolute w-64 h-64 bg-white opacity-20 rounded-full blur-3xl" 
           />
           
-          {/* Real Logo Image */}
-          <div className="relative z-10 w-48 h-48 flex items-center justify-center">
+          {/* Real Logo Image Container */}
+          <div className="relative z-10 w-48 h-48 bg-white rounded-full flex items-center justify-center shadow-lg p-2">
              <img 
                src={project.logo} 
                alt={`${project.title} logo`} 
-               className="w-full h-full object-contain drop-shadow-xl 
-               " 
-               // Note: Added 'brightness-0 invert' to make logos white. 
-               // Remove 'filter brightness-0 invert' if you want the original logo colors.
+               className="w-full h-full object-contain rounded-full" 
              />
           </div>
           
@@ -102,7 +116,7 @@ const Card = ({ i, project, progress, range, targetScale }: CardProps) => {
             {project.description}
           </p>
 
-          {/* SDG Section */}
+          {/* SDG Section - UPDATED TO USE IMAGES */}
           <div>
             <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
               Impact Goals (SDGs)
@@ -111,20 +125,23 @@ const Card = ({ i, project, progress, range, targetScale }: CardProps) => {
               {project.sdgs.map((sdg, idx) => (
                 <div 
                   key={idx} 
-                  className="w-10 h-10 bg-gray-800 text-white text-xs font-bold flex items-center justify-center rounded-md shadow-sm hover:bg-yellow-500 hover:text-black transition-colors cursor-default"
-                  title={`SDG Goal ${sdg}`}
+                  className="w-10 h-10 shadow-sm rounded overflow-hidden hover:scale-110 transition-transform"
+                  title="SDG Goal"
                 >
-                  {sdg}
+                  <img src={sdg} alt="SDG" className="w-full h-full object-cover" />
                 </div>
               ))}
             </div>
           </div>
           
-          {/* Optional CTA Button */}
+          {/* Working CTA Button */}
           <div className="mt-8">
-             <button className="text-sm font-bold border-b-2 border-black pb-1 hover:text-yellow-600 hover:border-yellow-600 transition-colors">
+             <Link 
+               to={project.link}
+               className="text-sm font-bold border-b-2 border-black pb-1 hover:text-yellow-600 hover:border-yellow-600 transition-colors"
+             >
                Learn More
-             </button>
+             </Link>
           </div>
         </div>
 
@@ -133,7 +150,7 @@ const Card = ({ i, project, progress, range, targetScale }: CardProps) => {
   )
 }
 
-// 2. The Main Section Wrapper
+// Main Section Wrapper
 export default function ProjectsSection() {
   const container = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -154,7 +171,6 @@ export default function ProjectsSection() {
 
       {/* The Stack Loop */}
       {projects.map((project, i) => {
-        // Calculate the scale for the "stacking" effect
         const targetScale = 1 - ( (projects.length - i) * 0.05);
         return (
           <Card 

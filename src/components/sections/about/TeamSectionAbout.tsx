@@ -1,30 +1,85 @@
 // src/components/sections/about/TeamSectionAbout.tsx
 
-// Let's create an array of placeholders. This makes it easy to change the number of team members later.
-const teamMembers = Array.from({ length: 6 }); // Creates an array with 6 empty slots
+import { useState } from 'react';
+
+// Import the 3 Final Views
+import MolecularView from './org-chart-views/MolecularView';
+import HierarchyView from './org-chart-views/HierarchyView';
+import InteractiveDeckView from './org-chart-views/InteractiveDeckView';
+
+// --- TEAM DATA ---
+const teamData = {
+  coPresidents: [
+    { name: 'Keshav Sharma', role: 'Co-President' },
+    { name: 'Yumnaa Farooq', role: 'Co-President' }
+  ],
+  operations: {
+    vp: { name: 'Veer Raigor', role: 'VP of Operations' },
+    directors: [
+      { name: 'Nisarg Bhatt', role: 'Finance Director' },
+      { name: 'Cindy Ngyuen', role: 'Events Director' },
+      { name: 'Felix Montanez', role: 'R&D Co-Director' },
+      { name: 'Marketing Director', role: 'Marketing Director' },
+      { name: 'HR Director', role: 'HR Director' },
+    ]
+  },
+  projects: {
+    vp: { name: 'Yared Okubay', role: 'VP of Enterprises' },
+    managers: [
+      { name: 'Yixuan (Bleyle) Liu', role: 'Case Clash PM' },
+      { name: 'Kavya', role: 'Case Clash PM' },
+      { name: 'Tea Boulanger', role: 'Project Upskill PM' },
+      { name: 'Shafra Due', role: 'Project Upskill PM' },
+      { name: 'Open Position', role: 'Second Cut Enterprise Manager' },
+    ]
+  }
+};
+
+type ViewType = 'molecular' | 'hierarchy' | 'deck';
 
 function TeamSectionAbout() {
+  const [currentView, setCurrentView] = useState<ViewType>('molecular');
+
+  const viewOptions: { id: ViewType; name: string }[] = [
+    { id: 'molecular', name: 'Molecular Network' },
+    { id: 'hierarchy', name: 'Hierarchy Structure' },
+    { id: 'deck', name: 'Interactive Deck' },
+  ];
+  
   return (
-    <section className="bg-purple-50 py-20 px-4 text-center">
-      <div className="max-w-7xl mx-auto">
+    <section className="bg-white py-16 px-4 text-center overflow-hidden">
+      <div className="max-w-[1400px] mx-auto"> 
 
         {/* Section Header */}
-        <h2 className="text-5xl md:text-6xl font-bold text-gray-800">Team</h2>
-        <p className="text-lg text-gray-600 mt-4">
-          Dedication. Expertise. Passion.
+        <h2 className="text-5xl font-bold text-gray-900 mb-6">Team Structure</h2>
+        <p className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
+          Explore our organization. Interact with the models below to see how we connect.
         </p>
-
-        {/* Team Members Grid */}
-        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {teamMembers.map((_, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-              <div className="w-32 h-32 mx-auto bg-gray-200 rounded-full mb-4">
-                {/* This is a placeholder for the member's image */}
-              </div>
-              <h3 className="text-xl font-bold text-gray-800">Member Name</h3>
-              <p className="text-gray-500">Member Role</p>
-            </div>
+        
+        {/* View Switcher UI */}
+        <div className="mb-12 p-1.5 bg-gray-100 border border-gray-200 rounded-full inline-flex shadow-inner">
+          {viewOptions.map(option => (
+            <button
+              key={option.id}
+              onClick={() => setCurrentView(option.id)}
+              className={`px-6 py-2 rounded-full text-base font-bold transition-all duration-300 ${
+                currentView === option.id 
+                ? 'bg-yellow-400 text-black shadow-lg transform scale-105' 
+                : 'bg-transparent text-gray-500 hover:text-gray-900 hover:bg-gray-200'
+              }`}
+            >
+              {option.name}
+            </button>
           ))}
+        </div>
+
+        {/* Render View - Fixed Height Container */}
+        <div className="border border-gray-200 rounded-[2.5rem] shadow-2xl bg-gray-50 overflow-hidden relative">
+          <div className="transition-all duration-500 ease-in-out min-h-[750px]">
+            {currentView === 'molecular' && <MolecularView data={teamData} />}
+            {currentView === 'hierarchy' && <HierarchyView data={teamData} />}
+            {currentView === 'deck' && <InteractiveDeckView data={teamData} />}
+          </div>
         </div>
 
       </div>

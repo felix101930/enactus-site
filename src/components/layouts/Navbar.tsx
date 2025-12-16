@@ -9,9 +9,9 @@ import logoWhite from '../../assets/logos/logo-enactus-sait-white.png';
 const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'About Us', href: '/about' },
-  { name: 'Projects', href: '#' },
-  { name: 'Events', href: '#' },
-  { name: 'Contact', href: '#' },
+  { name: 'Projects', href: '/projects' },
+  { name: 'Events', href: '#' }, // Keeping as # for now as requested
+  { name: 'Contact', href: '/contact' }, // <--- Fixed Link
 ];
 
 function Navbar() {
@@ -65,7 +65,6 @@ function Navbar() {
                     key={link.name}
                     to={link.href}
                     className={({ isActive }) =>
-                      // CORRECTED: Removed underline classes from here
                       `relative font-medium transition-colors hover:text-yellow-500 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-full after:bg-current after:origin-center after:transform after:scale-x-0 after:transition-transform after:duration-300
                       ${isActive ? `${activeLinkColor} after:scale-x-100` : linkColor}`
                     }
@@ -78,7 +77,13 @@ function Navbar() {
             
             <div className="flex items-center">
               <div className="hidden md:block">
-                <a href="#" className="px-6 py-2 bg-yellow-400 text-black font-bold rounded-md transition-all duration-300 hover:bg-yellow-500 hover:scale-105 hover:shadow-lg active:scale-95">
+                {/* Updated Follow Now Button to Linktree */}
+                <a 
+                  href="https://linktr.ee/EnactusSAIT?utm_source=linktree_profile_share&ltsid=a3c724df-7e68-4b46-8d1f-8fbc6407678f" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-2 bg-yellow-400 text-black font-bold rounded-md transition-all duration-300 hover:bg-yellow-500 hover:scale-105 hover:shadow-lg active:scale-95"
+                >
                   Follow Now
                 </a>
               </div>

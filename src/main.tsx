@@ -11,22 +11,30 @@ import './styles/globals.css';
 import Layout from './components/layouts/Layout';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
+import ProjectsPage from './pages/ProjectsPage';
+import ContactPage from './pages/ContactPage'; // <--- 1. IMPORT
 
-// Define the routes for your application
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />, // The Layout component is the parent for all pages
+    element: <Layout />, 
     children: [
       {
-        index: true, // This makes HomePage the default child route
+        index: true, 
         element: <HomePage />,
       },
       {
-        path: 'about', // The URL will be localhost:5173/about
+        path: 'about', 
         element: <AboutPage />,
       },
-      // We can add more pages here later (e.g., projects, contact)
+      {
+        path: 'projects', 
+        element: <ProjectsPage />,
+      },
+      {
+        path: 'contact', 
+        element: <ContactPage />, // <--- 2. ADD ROUTE
+      },
     ],
   },
 ]);
