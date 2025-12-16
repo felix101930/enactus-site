@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaUserCircle, FaChevronRight } from 'react-icons/fa';
+import { FaUserCircle } from 'react-icons/fa';
 
 const DeckItem = ({ member }: { member: any }) => (
   <motion.div 

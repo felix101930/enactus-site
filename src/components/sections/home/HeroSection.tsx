@@ -1,13 +1,16 @@
 // src/components/sections/home/HeroSection.tsx
 
 // 1. IMPORT motion and hooks from framer-motion
-import { motion, useScroll, useTransform } from 'framer-motion';
+    
+import { motion, useScroll, useTransform, Variants } from 'framer-motion'; // Add Variants
+
+  
 import heroBackground from '../../../assets/backgrounds/background-hero.png';
 
 const headline = "Igniting business innovation with integrity and passion.";
 
 // Define the animation variants for the container and each word
-const containerVariants = {
+const containerVariants : Variants= {
   hidden: {},
   visible: {
     transition: {
@@ -16,7 +19,7 @@ const containerVariants = {
   },
 };
 
-const wordVariants = {
+const wordVariants : Variants  = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
