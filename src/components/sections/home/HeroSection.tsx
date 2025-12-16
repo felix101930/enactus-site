@@ -2,7 +2,7 @@
 
 // 1. IMPORT motion and hooks from framer-motion
     
-import { motion, useScroll, useTransform, Variants } from 'framer-motion'; // Add Variants
+import { motion, useScroll, useTransform, type Variants } from 'framer-motion';
 
   
 import heroBackground from '../../../assets/backgrounds/background-hero.png';
