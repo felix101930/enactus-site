@@ -18,8 +18,8 @@ const teamData = {
       { name: 'Nisarg Bhatt', role: 'Finance Director' },
       { name: 'Cindy Ngyuen', role: 'Events Director' },
       { name: 'Felix Montanez', role: 'R&D Co-Director' },
-      { name: 'Marketing Director', role: 'Marketing Director' },
-      { name: 'HR Director', role: 'HR Director' },
+      { name: 'Anastasiia Davydova', role: 'Marketing Director' },
+      { name: 'Silve Rahman', role: 'HR Director' },
     ]
   },
   projects: {
