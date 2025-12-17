@@ -13,7 +13,7 @@ const teamData = {
     { name: 'Yumnaa Farooq', role: 'Co-President' }
   ],
   operations: {
-    vp: { name: 'Veer Raigor', role: 'VP of Operations' },
+    vp: { name: 'Veer Rajgor', role: 'VP of Operations' }, // Fixed Spelling
     directors: [
       { name: 'Nisarg Bhatt', role: 'Finance Director' },
       { name: 'Cindy Ngyuen', role: 'Events Director' },

@@ -27,9 +27,7 @@ const InteractiveDeckView = ({ data }: { data: any }) => {
       {/* BACKGROUND CONNECTOR LINES */}
       <div className="absolute top-1/2 left-0 w-full h-20 -translate-y-1/2 z-0 pointer-events-none">
          <svg className="w-full h-full">
-            {/* Line Center to Left */}
             <line x1="50%" y1="50%" x2="20%" y2="50%" stroke="#cbd5e1" strokeWidth="4" />
-            {/* Line Center to Right */}
             <line x1="50%" y1="50%" x2="80%" y2="50%" stroke="#cbd5e1" strokeWidth="4" />
          </svg>
       </div>
@@ -45,7 +43,7 @@ const InteractiveDeckView = ({ data }: { data: any }) => {
         >
           <div className="p-6 h-full flex flex-col">
              <div className="flex items-center gap-4 mb-6">
-                <FaUserCircle className="text-gray-600 text-5xl" />
+                <FaUserCircle className="text-gray-600 text-5xl shrink-0" />
                 <h3 className="text-2xl font-bold text-gray-900">Operations</h3>
              </div>
              
@@ -55,11 +53,11 @@ const InteractiveDeckView = ({ data }: { data: any }) => {
                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} 
                    className="flex-1 overflow-y-auto pr-2 custom-scrollbar"
                  >
+                   {/* FIXED ALIGNMENT: Added flex-1 to text container */}
                    <div className="mb-4 p-4 bg-gray-50 rounded-xl flex items-center gap-4">
-                     <FaUserCircle className="text-gray-800 text-4xl" />
-                     <div>
+                     <FaUserCircle className="text-gray-800 text-4xl shrink-0" />
+                     <div className="flex-1 text-left">
                        <p className="font-bold text-gray-900">{data.operations.vp.name}</p>
-                       {/* FIXED TITLE */}
                        <p className="text-xs font-bold uppercase text-gray-500">Vice President of Operations</p>
                      </div>
                    </div>
@@ -92,7 +90,7 @@ const InteractiveDeckView = ({ data }: { data: any }) => {
         >
           <div className="p-6 h-full flex flex-col">
              <div className="flex items-center gap-4 mb-6">
-                <FaUserCircle className="text-yellow-800 text-5xl" />
+                <FaUserCircle className="text-yellow-800 text-5xl shrink-0" />
                 <h3 className="text-2xl font-bold text-gray-900">Projects</h3>
              </div>
              
@@ -102,11 +100,11 @@ const InteractiveDeckView = ({ data }: { data: any }) => {
                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} 
                    className="flex-1 overflow-y-auto pr-2 custom-scrollbar"
                  >
+                   {/* FIXED ALIGNMENT: Added flex-1 to text container */}
                    <div className="mb-4 p-4 bg-white/40 rounded-xl flex items-center gap-4">
-                     <FaUserCircle className="text-black text-4xl" />
-                     <div>
+                     <FaUserCircle className="text-black text-4xl shrink-0" />
+                     <div className="flex-1 text-left">
                        <p className="font-bold text-black">{data.projects.vp.name}</p>
-                       {/* FIXED TITLE */}
                        <p className="text-xs font-bold uppercase text-black/60">Vice President of Projects</p>
                      </div>
                    </div>

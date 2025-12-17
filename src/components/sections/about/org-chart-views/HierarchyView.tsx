@@ -27,24 +27,14 @@ const HierarchyView = ({ data }: { data: any }) => {
           ))}
       </div>
 
-      {/* 2. CONNECTOR (Fixed Logic) */}
-      {/* This container sits BETWEEN the header and the grid */}
+      {/* 2. CONNECTOR */}
       <div className="w-full max-w-6xl h-20 relative -mt-4 -mb-4 z-0">
          <svg className="w-full h-full overflow-visible">
-           {/* Center Line Down */}
            <line x1="50%" y1="0" x2="50%" y2="50%" stroke="#9ca3af" strokeWidth="4" />
-           
-           {/* Horizontal Split Bar */}
-           {/* Note: This assumes the grid below is roughly split at 25% and 75% of the container width */}
            <line x1="25%" y1="50%" x2="75%" y2="50%" stroke="#9ca3af" strokeWidth="4" />
-           
-           {/* Left Line Down to Operations */}
            <line x1="25%" y1="50%" x2="25%" y2="100%" stroke="#9ca3af" strokeWidth="4" />
-           
-           {/* Right Line Down to Projects */}
            <line x1="75%" y1="50%" x2="75%" y2="100%" stroke="#9ca3af" strokeWidth="4" />
            
-           {/* Connection Dots for decoration */}
            <circle cx="50%" cy="50%" r="6" fill="#6b7280" />
            <circle cx="25%" cy="50%" r="6" fill="#6b7280" />
            <circle cx="75%" cy="50%" r="6" fill="#6b7280" />
@@ -56,13 +46,16 @@ const HierarchyView = ({ data }: { data: any }) => {
         
         {/* LEFT: OPERATIONS */}
         <div className="bg-white rounded-[2rem] p-8 shadow-lg border-t-8 border-gray-600">
-           <div className="flex items-center gap-4 mb-8 pb-6 border-b border-gray-100">
-              <FaUserCircle className="text-gray-600 text-6xl" />
-              <div>
+           {/* Header Block: Fixed alignment to prevent indentation */}
+           <div className="flex flex-row items-center gap-6 mb-8 pb-6 border-b border-gray-100">
+              <FaUserCircle className="text-gray-600 text-6xl shrink-0" />
+              <div className="text-left flex-1">
                 <h3 className="text-2xl font-bold text-gray-900">Operations</h3>
-                <p className="text-sm text-gray-500 font-bold uppercase">{data.operations.vp.name} (VP)</p>
+                <p className="text-sm text-gray-500 font-bold uppercase mt-1">{data.operations.vp.name}</p>
+                <span className="inline-block bg-gray-100 text-gray-500 text-[10px] font-bold px-2 py-0.5 rounded uppercase mt-1">Vice President</span>
               </div>
            </div>
+           
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
               {data.operations.directors.map((d: any) => (
                 <StaffCard key={d.name} name={d.name} role={d.role} />
@@ -72,13 +65,16 @@ const HierarchyView = ({ data }: { data: any }) => {
 
         {/* RIGHT: PROJECTS */}
         <div className="bg-white rounded-[2rem] p-8 shadow-lg border-t-8 border-yellow-400">
-           <div className="flex items-center gap-4 mb-8 pb-6 border-b border-gray-100">
-              <FaUserCircle className="text-yellow-500 text-6xl" />
-              <div>
+           {/* Header Block: Fixed alignment to prevent indentation */}
+           <div className="flex flex-row items-center gap-6 mb-8 pb-6 border-b border-gray-100">
+              <FaUserCircle className="text-yellow-500 text-6xl shrink-0" />
+              <div className="text-left flex-1">
                 <h3 className="text-2xl font-bold text-gray-900">Projects</h3>
-                <p className="text-sm text-gray-500 font-bold uppercase">{data.projects.vp.name} (VP)</p>
+                <p className="text-sm text-gray-500 font-bold uppercase mt-1">{data.projects.vp.name}</p>
+                <span className="inline-block bg-yellow-100 text-yellow-700 text-[10px] font-bold px-2 py-0.5 rounded uppercase mt-1">Vice President</span>
               </div>
            </div>
+           
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
               {data.projects.managers.map((m: any) => (
                 <StaffCard key={m.name} name={m.name} role={m.role} />
