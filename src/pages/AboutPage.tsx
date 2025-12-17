@@ -6,7 +6,7 @@ import PageHeader from '../components/sections/shared/PageHeader';
 import WhoWeAreSection from '../components/sections/about/WhoWeAreSection';
 import OurMissionSection from '../components/sections/about/OurMissionSection';
 import TeamSectionAbout from '../components/sections/about/TeamSectionAbout'; 
-import FacultySection from '../components/sections/about/FacultySection'; // <--- 1. Import
+import FacultyFoundation from '../components/sections/about/FacultyFoundation'; // <--- NEW COMPONENT
 import aboutHeroBg from '../assets/backgrounds/background-about-hero.png';
 
 function AboutPage() {
@@ -18,13 +18,7 @@ function AboutPage() {
         backgroundImage={aboutHeroBg}
       />
       
-      {/* 2. Added ID for smooth scrolling anchor */}
-      <div id="team">
-        <FadeIn>
-          <TeamSectionAbout />
-        </FadeIn>
-      </div>
-
+      {/* 1. Context First */}
       <FadeIn>
         <WhoWeAreSection />
       </FadeIn>
@@ -33,10 +27,19 @@ function AboutPage() {
         <OurMissionSection />
       </FadeIn>
 
-      {/* 3. Added Faculty Section */}
+      {/* 2. The Foundation (Faculty) - Option C Position */}
       <FadeIn>
-        <FacultySection />
+        <FacultyFoundation />
       </FadeIn>
+
+      {/* 3. The Execution (Students) */}
+      {/* ID="team" is here so the homepage link jumps to the chart */}
+      <div id="team">
+        <FadeIn>
+          <TeamSectionAbout />
+        </FadeIn>
+      </div>
+
     </main>
   );
 }

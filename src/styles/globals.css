@@ -4,4 +4,21 @@
 
 html {
   scroll-behavior: smooth;
+  /* 1. KEY FIX: Prevents fixed Navbar (80px) from covering section titles */
+  scroll-padding-top: 100px; 
+}
+
+/* 2. POLISH: Sleek scrollbar for the Interactive Deck */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.4);
 }

@@ -11,6 +11,7 @@ import headerBg from '../assets/backgrounds/background-about-hero.png';
 import logoCaseClash from '../assets/logos/logo-case-clash.png';
 import logoUpSkill from '../assets/logos/logo-upskill.png';
 import logoHydra from '../assets/logos/logo-hydraherder.png';
+import logoSecondCut from '../assets/logos/logo-second-cut.png';
 
 // SDG Icons
 import sdg01 from '../assets/icons/sdg/sdg-1.jpg';
@@ -31,12 +32,12 @@ const projects = [
     id: "01",
     title: "CASE CLASH",
     subtitle: "BUSINESS COMPETITION",
-    description: "Case Clash bridges the gap between high school theory and real-world business. We provide students with hands-on experience by partnering them with local small businesses to solve actual operational challenges.",
+    description: "Case Clash bridges the gap between high school theory and real-world business. We provide students with hands-on experience by partnering them with local small businesses to solve actual operational challenges. This creates a symbiotic relationship where students gain resume-worthy experience and businesses receive fresh, innovative solutions to their pressing problems.",
     // Colors
     borderColor: "border-red-500",
     textColor: "text-red-500",
     glowColor: "bg-red-500",
-    boxTint: "bg-red-50", // Light tint for the text box
+    boxTint: "bg-red-50", 
     // Assets
     logo: logoCaseClash,
     layout: "left", 
@@ -46,7 +47,7 @@ const projects = [
     id: "02",
     title: "PROJECT UPSKILL",
     subtitle: "FINANCIAL LITERACY",
-    description: "Empowering recovery through education. UpSkill delivers tailored financial literacy and wellness workshops to individuals in addiction recovery programs, providing the tools needed for sustainable independence.",
+    description: "Empowering recovery through education. UpSkill delivers tailored financial literacy and wellness resource workshops to individuals in addiction recovery programs in Calgary. By providing the tools needed for budgeting, saving, and financial planning, we help participants build the confidence and skills necessary for sustainable independence and long-term stability.",
     // Colors
     borderColor: "border-yellow-500",
     textColor: "text-yellow-600",
@@ -61,7 +62,7 @@ const projects = [
     id: "03",
     title: "HYDRAHERDER",
     subtitle: "AI INFRASTRUCTURE",
-    description: "Preventing failure before it happens. HydraHerder utilizes AI-powered predictive monitoring to detect leaks in water infrastructure early, conserving billions of liters of water annually.",
+    description: "Water infrastructure failure is invisible until it's a disaster. Leaks waste critical resources and cause massive property damage. HydraHerder utilizes AI-powered predictive monitoring to detect water breaks. This allows for proactive maintenance that prevents catastrophic failure and conserves billions of liters of water annually.",
     // Colors
     borderColor: "border-blue-500",
     textColor: "text-blue-500",
@@ -71,13 +72,27 @@ const projects = [
     logo: logoHydra,
     layout: "center", 
     sdgs: [sdg13, sdg06, sdg11, sdg09]
+  },
+  {
+    id: "04",
+    title: "SECOND CUT",
+    subtitle: "WASTE RECLAMATION",
+    description: "Construction and demolition waste accounts for a massive percentage of landfill volume, losing valuable materials and costing millions in disposal fees. Second Cut reclaims usable wood and materials directly from sites, diverting waste from landfills and upcycling them into sellable products or raw material to create a sustainable circular economy.",
+    // Colors
+    borderColor: "border-orange-500",
+    textColor: "text-orange-600",
+    glowColor: "bg-orange-500",
+    boxTint: "bg-orange-50",
+    // Assets
+    logo: logoSecondCut,
+    layout: "center", 
+    sdgs: [sdg11, sdg12, sdg09, sdg13, sdg06] 
   }
 ];
 
 // --- COMPONENTS ---
 
 // 1. Reusable Interactive SDG Icon
-// This ensures ALL icons behave the same way
 const SDGIcon = ({ src }: { src: string }) => (
   <motion.div 
     whileHover={{ y: -8, scale: 1.1 }}
@@ -89,7 +104,7 @@ const SDGIcon = ({ src }: { src: string }) => (
   </motion.div>
 );
 
-// 2. The Background Pattern (Clean Graph)
+// 2. The Background Pattern
 const CleanBackground = () => (
   <div className="absolute inset-0 z-0 pointer-events-none opacity-30">
     <div 
@@ -110,15 +125,13 @@ const ProjectSection = ({ project }: { project: typeof projects[0] }) => {
     offset: ["start end", "end start"]
   });
   
-  // Parallax effect for the giant background logo
   const logoY = useTransform(scrollYProgress, [0, 1], [-50, 50]);
   const logoRotate = useTransform(scrollYProgress, [0, 1], [-5, 5]);
 
   return (
     <section ref={ref} className="relative py-32 overflow-hidden min-h-[85vh] flex items-center">
       
-      {/* CONCEPT B: AMBIENT GLOW */}
-      {/* A massive, blurred blob of color behind the content to fill white space */}
+      {/* AMBIENT GLOW */}
       <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] ${project.glowColor} rounded-full blur-[120px] opacity-[0.08] pointer-events-none z-0`} />
 
       {/* GIANT FADED BACKGROUND LOGO */}
@@ -134,7 +147,6 @@ const ProjectSection = ({ project }: { project: typeof projects[0] }) => {
         {/* === LAYOUT VARIANT: LEFT === */}
         {project.layout === 'left' && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-            {/* Title & Description Area */}
             <div className="lg:col-span-5">
               <div className={`border-l-8 ${project.borderColor} pl-8 py-4`}>
                 <h2 className="text-6xl font-extrabold text-gray-900 leading-none tracking-tight">
@@ -146,8 +158,6 @@ const ProjectSection = ({ project }: { project: typeof projects[0] }) => {
               </div>
               
               <div className="mt-8">
-                {/* CONCEPT C: CONTEXT BOX */}
-                {/* Tinted background box instead of plain white */}
                 <div className={`${project.boxTint} p-10 shadow-sm rounded-2xl border border-white/50 relative z-20`}>
                   <p className="text-gray-800 leading-relaxed text-lg font-medium">
                     {project.description}
@@ -156,17 +166,13 @@ const ProjectSection = ({ project }: { project: typeof projects[0] }) => {
               </div>
             </div>
 
-            {/* Visuals & SDGs */}
             <div className="lg:col-span-7 flex flex-col items-center lg:items-end space-y-10">
-              {/* Logo Container */}
               <motion.div 
                 whileHover={{ scale: 1.05 }}
                 className="relative w-80 h-80 bg-white rounded-full flex items-center justify-center shadow-2xl border-4 border-white z-10"
               >
                  <img src={project.logo} alt={project.title} className="w-56 h-56 object-contain" />
               </motion.div>
-
-              {/* SDG Row */}
               <div className="flex flex-wrap gap-4 justify-center lg:justify-end">
                 {project.sdgs.map((sdg, idx) => (
                   <SDGIcon key={idx} src={sdg} />
@@ -179,8 +185,6 @@ const ProjectSection = ({ project }: { project: typeof projects[0] }) => {
         {/* === LAYOUT VARIANT: RIGHT === */}
         {project.layout === 'right' && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-            
-            {/* Visuals (Left side now) */}
             <div className="lg:col-span-7 order-2 lg:order-1 flex flex-col items-center lg:items-start space-y-10">
                <motion.div 
                  whileHover={{ scale: 1.05 }}
@@ -196,7 +200,6 @@ const ProjectSection = ({ project }: { project: typeof projects[0] }) => {
               </div>
             </div>
 
-            {/* Content */}
             <div className="lg:col-span-5 order-1 lg:order-2 text-right">
               <div className={`border-r-8 ${project.borderColor} pr-8 py-4 flex flex-col items-end`}>
                 <h2 className="text-6xl font-extrabold text-gray-900 leading-none tracking-tight">
@@ -208,7 +211,6 @@ const ProjectSection = ({ project }: { project: typeof projects[0] }) => {
               </div>
 
               <div className="mt-8">
-                {/* CONCEPT C: CONTEXT BOX */}
                 <div className={`${project.boxTint} p-10 shadow-sm rounded-2xl border border-white/50 relative text-left z-20`}>
                   <p className="text-gray-800 leading-relaxed text-lg font-medium">
                     {project.description}
@@ -219,36 +221,19 @@ const ProjectSection = ({ project }: { project: typeof projects[0] }) => {
           </div>
         )}
 
-        {/* === LAYOUT VARIANT: CENTER (HydraHerder) === */}
+        {/* === LAYOUT VARIANT: CENTER (Unified) === */}
         {project.layout === 'center' && (
           <div className="max-w-5xl mx-auto text-center">
             
-            {/* Clean Header */}
-            <div className="mb-16">
+            {/* Header */}
+            <div className="mb-12">
               <h2 className="text-6xl md:text-8xl font-extrabold text-gray-900 tracking-tight mb-4">
                 {project.title}
               </h2>
               <div className={`h-2 w-32 mx-auto ${project.glowColor} rounded-full`}></div>
             </div>
 
-            {/* Grid Content */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16 text-left">
-              {/* CONCEPT C: CONTEXT BOXES */}
-              <div className={`${project.boxTint} p-8 shadow-sm border-t-8 ${project.borderColor} rounded-2xl`}>
-                <h4 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-3">The Challenge</h4>
-                <p className="text-gray-800 text-lg leading-relaxed font-medium">
-                  Water infrastructure failure is invisible until it's a disaster. Leaks waste critical resources and cause massive property damage.
-                </p>
-              </div>
-              <div className={`${project.boxTint} p-8 shadow-sm border-t-8 ${project.borderColor} rounded-2xl`}>
-                <h4 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-3">The Solution</h4>
-                <p className="text-gray-800 text-lg leading-relaxed font-medium">
-                  AI-powered predictive monitoring. We detect the sound frequencies of a leak before the pipe bursts, allowing for proactive maintenance.
-                </p>
-              </div>
-            </div>
-
-            {/* Central Visual */}
+            {/* Central Visual (Top) */}
             <div className="relative inline-block mb-12">
                <motion.div 
                  whileHover={{ scale: 1.1 }}
@@ -256,11 +241,19 @@ const ProjectSection = ({ project }: { project: typeof projects[0] }) => {
                >
                  <img src={project.logo} alt={project.title} className="w-40 h-40 object-contain" />
               </motion.div>
-              {/* Ring Decoration */}
               <div className={`absolute top-0 left-0 w-full h-full border-4 ${project.borderColor} opacity-20 rounded-full -z-0 transform scale-110`}></div>
             </div>
 
-            {/* SDG Row */}
+            {/* Single Unified Description Box */}
+            <div className="max-w-3xl mx-auto mb-12 text-left">
+              <div className={`${project.boxTint} p-10 shadow-md border-l-8 ${project.borderColor} rounded-r-2xl`}>
+                <p className="text-gray-800 text-lg leading-relaxed font-medium">
+                  {project.description}
+                </p>
+              </div>
+            </div>
+
+            {/* Footer SDGs */}
              <div className="flex justify-center gap-4">
                   {project.sdgs.map((sdg, idx) => (
                     <SDGIcon key={idx} src={sdg} />
@@ -275,7 +268,6 @@ const ProjectSection = ({ project }: { project: typeof projects[0] }) => {
   );
 };
 
-// 4. Main Page Component
 function ProjectsPage() {
   return (
     <main className="bg-gray-50 min-h-screen relative">
@@ -288,19 +280,15 @@ function ProjectsPage() {
       <div className="relative">
         <CleanBackground />
         
-        {/* Render Sections */}
         {projects.map((proj, index) => (
           <div key={proj.id} id={proj.title.toLowerCase().replace(/\s/g, '-')}>
              <ProjectSection project={proj} />
-             
-             {/* Visual Separator */}
              {index < projects.length - 1 && (
                <div className="max-w-2xl mx-auto h-px bg-gray-200" />
              )}
           </div>
         ))}
         
-        {/* Footer Spacer */}
         <div className="h-24"></div>
       </div>
     </main>

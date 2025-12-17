@@ -59,7 +59,8 @@ const InteractiveDeckView = ({ data }: { data: any }) => {
                      <FaUserCircle className="text-gray-800 text-4xl" />
                      <div>
                        <p className="font-bold text-gray-900">{data.operations.vp.name}</p>
-                       <p className="text-xs font-bold uppercase text-gray-500">Vice President</p>
+                       {/* FIXED TITLE */}
+                       <p className="text-xs font-bold uppercase text-gray-500">Vice President of Operations</p>
                      </div>
                    </div>
                    <div className="grid grid-cols-1 xl:grid-cols-2 gap-3">
@@ -105,7 +106,8 @@ const InteractiveDeckView = ({ data }: { data: any }) => {
                      <FaUserCircle className="text-black text-4xl" />
                      <div>
                        <p className="font-bold text-black">{data.projects.vp.name}</p>
-                       <p className="text-xs font-bold uppercase text-black/60">Vice President</p>
+                       {/* FIXED TITLE */}
+                       <p className="text-xs font-bold uppercase text-black/60">Vice President of Projects</p>
                      </div>
                    </div>
                    <div className="grid grid-cols-1 xl:grid-cols-2 gap-3">

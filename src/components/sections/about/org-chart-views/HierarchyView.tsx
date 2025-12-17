@@ -27,27 +27,32 @@ const HierarchyView = ({ data }: { data: any }) => {
           ))}
       </div>
 
-      {/* 2. CONNECTOR (Flex Item - Guaranteed Visibility) */}
-      <div className="w-full max-w-4xl h-16 relative">
+      {/* 2. CONNECTOR (Fixed Logic) */}
+      {/* This container sits BETWEEN the header and the grid */}
+      <div className="w-full max-w-6xl h-20 relative -mt-4 -mb-4 z-0">
          <svg className="w-full h-full overflow-visible">
            {/* Center Line Down */}
-           <path d="M 50% 0 L 50% 100%" stroke="#cbd5e1" strokeWidth="4" fill="none" />
-           {/* Horizontal Split */}
-           <path d="M 25% 100% L 75% 100%" stroke="#cbd5e1" strokeWidth="4" fill="none" />
-           {/* Vertical Drops */}
-           <path d="M 25% 50% L 25% 100%" stroke="#cbd5e1" strokeWidth="4" fill="none" />
-           <path d="M 75% 50% L 75% 100%" stroke="#cbd5e1" strokeWidth="4" fill="none" />
+           <line x1="50%" y1="0" x2="50%" y2="50%" stroke="#9ca3af" strokeWidth="4" />
            
-           {/* Joint Dots */}
-           <circle cx="50%" cy="0" r="6" fill="#94a3b8" />
-           <circle cx="50%" cy="100%" r="6" fill="#94a3b8" />
-           <circle cx="25%" cy="100%" r="6" fill="#94a3b8" />
-           <circle cx="75%" cy="100%" r="6" fill="#94a3b8" />
+           {/* Horizontal Split Bar */}
+           {/* Note: This assumes the grid below is roughly split at 25% and 75% of the container width */}
+           <line x1="25%" y1="50%" x2="75%" y2="50%" stroke="#9ca3af" strokeWidth="4" />
+           
+           {/* Left Line Down to Operations */}
+           <line x1="25%" y1="50%" x2="25%" y2="100%" stroke="#9ca3af" strokeWidth="4" />
+           
+           {/* Right Line Down to Projects */}
+           <line x1="75%" y1="50%" x2="75%" y2="100%" stroke="#9ca3af" strokeWidth="4" />
+           
+           {/* Connection Dots for decoration */}
+           <circle cx="50%" cy="50%" r="6" fill="#6b7280" />
+           <circle cx="25%" cy="50%" r="6" fill="#6b7280" />
+           <circle cx="75%" cy="50%" r="6" fill="#6b7280" />
          </svg>
       </div>
 
       {/* 3. CONTENT GRID */}
-      <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
+      <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8 mt-4 z-10">
         
         {/* LEFT: OPERATIONS */}
         <div className="bg-white rounded-[2rem] p-8 shadow-lg border-t-8 border-gray-600">

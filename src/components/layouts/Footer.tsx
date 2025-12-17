@@ -40,7 +40,6 @@ function Footer() {
           <div>
             <h3 className="font-bold text-gray-800 mb-4">Socials</h3>
             <ul className="space-y-2">
-              {/* Updated Links */}
               <li><a href="https://www.youtube.com/@enactussait" target="_blank" rel="noopener noreferrer" className="text-sm underline hover:text-yellow-500 transition-colors">Youtube</a></li>
               <li><a href="https://www.instagram.com/EnactusSAIT" target="_blank" rel="noopener noreferrer" className="text-sm underline hover:text-yellow-500 transition-colors">Instagram</a></li>
               <li><a href="https://www.linkedin.com/company/enactus-sait/" target="_blank" rel="noopener noreferrer" className="text-sm underline hover:text-yellow-500 transition-colors">LinkedIn</a></li>
@@ -60,11 +59,14 @@ function Footer() {
 
         </div>
 
-        {/* Bottom Bar with "Go Up" Link */}
+        {/* Bottom Bar with "Go Up" Link - Anchors to top of page */}
         <div className="mt-16 pt-8 border-t border-gray-200 text-right">
-          <a href="#top" className="text-sm text-gray-600 underline hover:text-yellow-500 transition-colors">
+          <button 
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+            className="text-sm text-gray-600 underline hover:text-yellow-500 transition-colors"
+          >
             Go Up
-          </a>
+          </button>
         </div>
 
       </div>

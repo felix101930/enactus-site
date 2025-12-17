@@ -2,8 +2,7 @@
 
 import { useState } from 'react';
 
-// Import the 3 Final Views
-import MolecularView from './org-chart-views/MolecularView';
+// Import the 2 Remaining Views
 import HierarchyView from './org-chart-views/HierarchyView';
 import InteractiveDeckView from './org-chart-views/InteractiveDeckView';
 
@@ -35,13 +34,12 @@ const teamData = {
   }
 };
 
-type ViewType = 'molecular' | 'hierarchy' | 'deck';
+type ViewType = 'hierarchy' | 'deck';
 
 function TeamSectionAbout() {
-  const [currentView, setCurrentView] = useState<ViewType>('molecular');
+  const [currentView, setCurrentView] = useState<ViewType>('hierarchy');
 
   const viewOptions: { id: ViewType; name: string }[] = [
-    { id: 'molecular', name: 'Molecular Network' },
     { id: 'hierarchy', name: 'Hierarchy Structure' },
     { id: 'deck', name: 'Interactive Deck' },
   ];
@@ -57,7 +55,7 @@ function TeamSectionAbout() {
         </p>
         
         {/* View Switcher UI */}
-        <div className="mb-12 p-1.5 bg-gray-100 border border-gray-200 rounded-full inline-flex shadow-inner">
+        <div className="mb-12 p-1.5 bg-gray-100 border border-gray-200 rounded-full inline-flex shadow-inner flex-wrap justify-center gap-2">
           {viewOptions.map(option => (
             <button
               key={option.id}
@@ -73,12 +71,21 @@ function TeamSectionAbout() {
           ))}
         </div>
 
-        {/* Render View - Fixed Height Container */}
+        {/* Chart Container */}
         <div className="border border-gray-200 rounded-[2.5rem] shadow-2xl bg-gray-50 overflow-hidden relative">
-          <div className="transition-all duration-500 ease-in-out min-h-[750px]">
-            {currentView === 'molecular' && <MolecularView data={teamData} />}
-            {currentView === 'hierarchy' && <HierarchyView data={teamData} />}
-            {currentView === 'deck' && <InteractiveDeckView data={teamData} />}
+          <div className="overflow-x-auto custom-scrollbar">
+            {/* Min-width ensures charts don't get squished on mobile */}
+            <div className="transition-all duration-500 ease-in-out min-h-[750px] min-w-[1000px] md:min-w-0">
+              {currentView === 'hierarchy' && <HierarchyView data={teamData} />}
+              {currentView === 'deck' && <InteractiveDeckView data={teamData} />}
+            </div>
+          </div>
+          
+          {/* Mobile Hint Overlay */}
+          <div className="md:hidden absolute bottom-4 left-0 w-full text-center pointer-events-none opacity-50">
+            <span className="bg-black/10 px-3 py-1 rounded-full text-xs font-bold text-gray-500">
+              Swipe to explore →
+            </span>
           </div>
         </div>
 
