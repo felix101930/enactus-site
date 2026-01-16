@@ -1,19 +1,8 @@
 # Enactus SAIT Official Website
 
-Welcome to the official repository for the Enactus SAIT website. This project serves as the modern, interactive, and informational hub for the Enactus SAIT organization, built with a fully responsive and dynamic tech stack.
 
 ## **Live Site:** [https://enactus-site-mu.vercel.app/](https://enactus-site-mu.vercel.app/)
 
-## Key Features
-
-This project is more than just a static site. It's a showcase of modern web development techniques designed to create an engaging user experience.
-
-- **Dynamic "Sticky" Navbar:** A navigation bar that transitions from transparent to a solid background on scroll, dynamically switching logos and text colors for maximum readability.
-- **Fully Responsive Mobile Menu:** A beautifully animated "hamburger" menu that provides a seamless navigation experience on any device.
-- **On-Scroll Animations:** Content sections gracefully fade into view as the user scrolls, powered by `react-intersection-observer`.
-- **Advanced Scroll-Linked Animations:** The homepage features a "deck of cards" effect for projects, and the main projects page uses multiple layouts and parallax effects, all powered by `Framer Motion`.
-- **Interactive Org Charts:** The "About Us" page features multiple, switchable views for exploring the team structure.
-- **Component-Driven Architecture:** Built from the ground up with a modular and reusable component system, making the site easy to scale and maintain.
 
 ## Tech Stack
 
@@ -55,27 +44,6 @@ To get a local copy up and running, follow these simple steps.
     The site will be available at `http://localhost:5173/`.
 
 ---
-
-## TODO
-
-Felix
-
-- [ ] **Awards and Achievements Section**
-
-Sophia
-
-- [ ] **Resend Integration, Test Functionality**
-
-Osele
-
-- [ ] **About Us Section Follow Hierarchy Style, Use Placeholder Images**
-
-## NOTES
-
-- Create your branch following "feature/x"
-
-- When done, send me a PR Request for merging
-
 ## Active Development Tasks
 
 ---
@@ -97,7 +65,7 @@ Osele
     - Use a personal email for testing
     - **Crucially,** manage the API key securely using environment variables (`.env` file), not hardcoded in the component.
     - Add success and error state handling to provide clear feedback to the user after they submit the form.
-    - Add a logging system if possible either on backend or a log file (optional).
+    - Add a logging system either on backend or a log file (optional).
 
 ---
 
@@ -124,7 +92,7 @@ To keep our workflow clean and organized, please follow these steps:
     # Example: git checkout -b feature/contact-form-integration
     ```
 
-2.  **Commit Your Work:** Make small, logical commits. Write clear and concise commit messages that explain _what_ you changed and _why_.
+2.  **Commit Your Work:** Make small, logical commits. Write clear and concise commit messages that explain changes in a concise way. 
 
 3.  **Open a Pull Request:** When your feature is complete and tested, push your branch to the repository and open a PR on GitHub to merge into the `main` branch.
 
