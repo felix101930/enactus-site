@@ -121,7 +121,7 @@ To keep our workflow clean and organized, please follow these steps:
 
     ```sh
     git checkout -b feature/your-name/task-summary
-    # Example: git checkout -b feature/sophia/contact-form-integration
+    # Example: git checkout -b feature/contact-form-integration
     ```
 
 2.  **Commit Your Work:** Make small, logical commits. Write clear and concise commit messages that explain _what_ you changed and _why_.
