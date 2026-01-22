@@ -23,14 +23,43 @@ const HeroFormSection = () => {
     message: ''
   });
 
+  // for feedback message (success/failure)
+  const [status, setStatus] = useState<string | null>(null);
+  // shows sending message and will disable button when still loading 
+  const [loading, setLoading] = useState(false);
+
+  //updates form data upon input
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // sends data to the API route
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const mailtoLink = `mailto:enactus.saitpolytechnic@gmail.com?subject=[Website Inquiry] ${encodeURIComponent(formData.subject)}&body=Name: ${encodeURIComponent(formData.name)}%0D%0AEmail: ${encodeURIComponent(formData.email)}%0D%0A%0D%0A${encodeURIComponent(formData.message)}`;
-    window.location.href = mailtoLink;
+    setStatus(null);
+    setLoading(true);
+
+     // sends form data to API and handles response. site gets updated with success or error feedback
+    try {
+      const res = await fetch('/api/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setStatus('Message sent successfully!');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setStatus(data.error || 'Failed to send message.');
+      }
+    } catch (err) {
+      setStatus('Failed to send message.');
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -92,16 +121,17 @@ const HeroFormSection = () => {
             <button 
               type="submit" 
               className="w-full py-3 bg-yellow-400 text-black font-bold rounded-lg hover:bg-yellow-500 transform hover:scale-105 transition-all shadow-lg"
+              disabled = {loading}
             >
-              Send Message
+              {loading ? 'Sending...' : 'Send Message'}
             </button>
+            {status && <p className="mt-2 text-center text-white">{status}</p>}
           </form>
         </motion.div>
       </div>
     </section>
   );
 };
-
 // 2. The Social Links Section Component - UPDATED
 const SocialsSection = () => {
   // Updated data structure with icons and subtext
