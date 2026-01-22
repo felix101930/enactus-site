@@ -7,13 +7,15 @@ import { HelmetProvider } from 'react-helmet-async';
 
 import './styles/globals.css';
 
-// Import your layout and page components
+// Import your layout and ALL page components
 import Layout from './components/layouts/Layout';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import ProjectsPage from './pages/ProjectsPage';
-import ContactPage from './pages/ContactPage'; // <--- 1. IMPORT
+import ContactPage from './pages/ContactPage';
+import AwardsPage from './pages/AwardsPage'; // <--- 1. IMPORT
 
+// Define the routes for your application
 const router = createBrowserRouter([
   {
     path: '/',
@@ -32,8 +34,12 @@ const router = createBrowserRouter([
         element: <ProjectsPage />,
       },
       {
+        path: 'awards', 
+        element: <AwardsPage />, // <--- 2. ADD ROUTE
+      },
+      {
         path: 'contact', 
-        element: <ContactPage />, // <--- 2. ADD ROUTE
+        element: <ContactPage />,
       },
     ],
   },

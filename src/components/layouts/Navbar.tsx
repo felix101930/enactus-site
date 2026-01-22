@@ -10,7 +10,7 @@ const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'About Us', href: '/about' },
   { name: 'Projects', href: '/projects' },
-  // Events removed as requested
+  { name: 'Awards', href: '/awards' }, // <--- ADDED HERE
   { name: 'Contact', href: '/contact' },
 ];
 
@@ -56,18 +56,23 @@ function Navbar() {
             </div>
 
             <div className="hidden md:flex md:items-center md:space-x-8">
-              {navLinks.map((link) => (
-                <NavLink
-                  key={link.name}
-                  to={link.href}
-                  className={({ isActive }) =>
-                    `relative font-medium transition-colors hover:text-yellow-500 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-full after:bg-current after:origin-center after:transform after:scale-x-0 after:transition-transform after:duration-300
-                    ${isActive ? `${activeLinkColor} after:scale-x-100` : linkColor}`
-                  }
-                >
-                  {link.name}
-                </NavLink>
-              ))}
+              {navLinks.map((link) => {
+                if (link.href === '#') {
+                  return <a key={link.name} href={link.href} className={`font-medium transition-colors hover:text-yellow-500 ${linkColor}`}>{link.name}</a>;
+                }
+                return (
+                  <NavLink
+                    key={link.name}
+                    to={link.href}
+                    className={({ isActive }) =>
+                      `relative font-medium transition-colors hover:text-yellow-500 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-full after:bg-current after:origin-center after:transform after:scale-x-0 after:transition-transform after:duration-300
+                      ${isActive ? `${activeLinkColor} after:scale-x-100` : linkColor}`
+                    }
+                  >
+                    {link.name}
+                  </NavLink>
+                );
+              })}
             </div>
             
             <div className="flex items-center">
