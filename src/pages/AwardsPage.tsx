@@ -23,7 +23,7 @@ const awards: AwardData[] = [
   {
     year: "2025",
     title: "Bentley iTwin4Good Challenge",
-    category: "International Runner Up",
+    category: "National First Runner Up",
     description: "Awarded to Project HydraHerder for excellence in infrastructure digital twin technology.",
     icon: <FaTrophy />
   },
@@ -76,15 +76,15 @@ const awards: AwardData[] = [
   },
   {
     year: "2020",
-    title: "Enactus National Competition",
-    category: "Opening Round Runner Up",
+    title: "Opening Round Runner Up",
+    category: "Enactus National Competition ",
     icon: <FaMedal />
   },
   // 2019
   {
     year: "2019",
-    title: "Scotiabank Youth Empowerment Challenge",
-    category: "Regional Second Runner Up",
+    title: "Regional Second Runner Up",
+    category: "Scotiabank Youth Empowerment Challenge",
     icon: <FaCertificate />
   },
   {
@@ -137,21 +137,24 @@ const TimelineCard = ({ data, index }: { data: AwardData; index: number }) => {
           </span>
 
           <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-2">
+            {/* TOP ROW: Year Badge + Competition Name (Context) */}
+            <div className="flex flex-wrap items-center gap-3 mb-3">
               <span className="bg-yellow-100 text-yellow-800 text-xs font-bold px-2 py-1 rounded uppercase tracking-wider">
                 {data.year}
               </span>
-              <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
-                {data.category}
+              {/* Swapped: Title (Competition) is now the smaller text */}
+              <span className="text-sm font-bold text-gray-500 uppercase tracking-wide">
+                {data.title}
               </span>
             </div>
             
-            <h3 className="text-2xl font-bold text-gray-900 mb-2 leading-tight">
-              {data.title}
+            {/* MAIN HEADLINE: Category (The Award) is now the big text */}
+            <h3 className="text-3xl font-extrabold text-gray-900 mb-3 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600">
+              {data.category}
             </h3>
             
             {data.description && (
-              <p className="text-gray-600 text-base leading-relaxed">
+              <p className="text-gray-600 text-base leading-relaxed border-l-4 border-yellow-400 pl-4">
                 {data.description}
               </p>
             )}
@@ -162,7 +165,6 @@ const TimelineCard = ({ data, index }: { data: AwardData; index: number }) => {
     </div>
   );
 };
-
 function AwardsPage() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
