@@ -10,7 +10,7 @@ import awardsHeroBg from '../assets/backgrounds/background-hero.png';
 // --- FIXED IMAGE IMPORTS ---
 import imgNationals2025 from '../assets/images/awards/Nationals-2025.jpg'; 
 import imgHsbcDesjardins from '../assets/images/awards/HSBC_and_Desjardin.jpg';
-import imgScotiabankClimate from '../assets/images/awards/Scotiabank_cc.JPG';
+import imgScotiabankClimate from '../assets/images/awards/Scotiabank_cc.jpg';
 import imgScotiabankYouthTrophy from '../assets/images/awards/Scotiabank_Youth1.jpg';
 import imgMapleLeaf from '../assets/images/awards/MapleLeaf.jpg';
 import logoUpSkill from '../assets/logos/logo-upskill.png'; 
@@ -110,7 +110,7 @@ const awards: AwardData[] = [
     category: "Institutional Honor",
     description: "Recognizing exceptional leadership and contribution to the student community within SAIT.",
     icon: <FaTrophy />,
-    videoId: "-qQABWh3sTs" // UPDATED VIDEO ID
+    videoId: "0h5l1sI-Bok" // UPDATED VIDEO ID
   },
   {
     year: "2019",
