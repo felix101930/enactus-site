@@ -4,16 +4,13 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import logoWhite from '../../assets/logos/logo-enactus-sait-white.png';
 
-// RENAMED PROP: onComplete is now onStartExit for clarity
 export default function IntroOverlay({ onStartExit }: { onStartExit: () => void }) {
   const [phase, setPhase] = useState(0);
 
   useEffect(() => {
-    // Phase 1: WE INSPIRE (0s -> 1.3s)
+    // Pacing remains the same (~4.2 seconds)
     const timer1 = setTimeout(() => setPhase(1), 1300);
-    // Phase 2: WE CREATE (1.3s -> 2.6s)
     const timer2 = setTimeout(() => setPhase(2), 2600);
-    // Phase 3: LOGO REVEAL (2.6s -> 4.2s) -> Tell parent to start exit
     const timer3 = setTimeout(() => {
       onStartExit(); 
     }, 4200);
@@ -32,11 +29,11 @@ export default function IntroOverlay({ onStartExit }: { onStartExit: () => void 
   };
 
   return (
-    // The exit animation itself is now controlled by AnimatePresence in HomePage
     <motion.div
       className="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center"
-      initial={{ y: 0 }}
-      exit={{ y: "-100%" }} // The Curtain Raise
+      initial={{ scale: 1, opacity: 1 }}
+      // --- THE "ZOOM OUT" TRANSITION ---
+      exit={{ scale: 1.5, opacity: 0, filter: "blur(20px)" }} // Zooms out, fades, and blurs for a smooth effect
       transition={{ duration: 1.0, ease: [0.76, 0, 0.24, 1] }}
     >
       <AnimatePresence mode="wait">

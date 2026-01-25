@@ -10,11 +10,12 @@ import heroFallback from '../../../assets/backgrounds/background-hero.png';
 const VIDEO_ID = "B7FrMg8w_98"; 
 const headline = "Igniting business innovation with integrity and passion.";
 
-// NEW: Delay text until after video is visible
 const containerVariants: Variants = {
-  hidden: {},
+  hidden: { opacity: 0, scale: 0.95 },
   visible: {
-    transition: { staggerChildren: 0.05, delayChildren: 0.5 },
+    opacity: 1,
+    scale: 1,
+    transition: { staggerChildren: 0.05, delayChildren: 0.2 },
   },
 };
 
@@ -27,42 +28,28 @@ const wordVariants: Variants = {
   },
 };
 
-// RENAMED PROP: triggerAnimation is now startScene for clarity
 interface HeroProps {
   startScene: boolean;
 }
 
 function HeroSection({ startScene }: HeroProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const videoControls = useAnimation();
-  const textControls = useAnimation();
+  const contentControls = useAnimation();
 
   useEffect(() => {
-    // This sequence now only runs when startScene becomes true
+    // This sequence now only runs when the intro has finished
     if (startScene) {
-      const sequence = async () => {
-        // Step 1: Fade in the video from black
-        await videoControls.start({
-          opacity: 1,
-          transition: { duration: 1.5, ease: 'easeOut' }
-        });
-        // Step 2: Animate the text and buttons
-        await textControls.start('visible');
-      };
-      sequence();
+      // Animate the text and buttons into view
+      contentControls.start('visible');
     }
-  }, [startScene, videoControls, textControls]);
+  }, [startScene, contentControls]);
 
   return (
     <>
       <section className="relative h-screen overflow-hidden flex items-center justify-center text-white bg-black">
         
-        {/* VIDEO/BACKGROUND LAYER */}
-        <motion.div 
-          initial={{ opacity: 0 }} // Starts invisible
-          animate={videoControls}
-          className="absolute inset-0 z-0"
-        >
+        {/* BACKGROUND LAYER (No animation needed, it's revealed by the zoom) */}
+        <div className="absolute inset-0 z-0">
           <div 
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${heroFallback})` }}
@@ -77,14 +64,15 @@ function HeroSection({ startScene }: HeroProps) {
             </div>
           </div>
           <div className="absolute inset-0 z-20 bg-black/50"></div>
-        </motion.div>
+        </div>
 
         {/* CONTENT (TEXT/BUTTONS) LAYER */}
         <motion.div 
           className="relative z-30 text-left max-w-4xl px-4 mt-10"
           variants={containerVariants}
           initial="hidden"
-          animate={textControls}
+          animate={contentControls}
+          transition={{ duration: 0.8, ease: "easeOut" }} // Transition for the entire content block
         >
           <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-8 drop-shadow-lg">
             {headline.split(' ').map((word, index) => (

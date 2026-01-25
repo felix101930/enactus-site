@@ -12,11 +12,10 @@ import TeamSection from '../components/sections/home/TeamSection';
 import PartnersSection from '../components/sections/home/PartnersSection';
 import IntroOverlay from '../components/common/IntroOverlay';
 
-// State machine for our intro sequence
 type IntroState = 'playing' | 'exiting' | 'finished';
 
 function HomePage() {
-  const [introState, setIntroState] = useState<IntroState>('finished'); // Default to finished if no intro
+  const [introState, setIntroState] = useState<IntroState>('finished'); 
   
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
@@ -26,31 +25,26 @@ function HomePage() {
 
     const hasSeenIntro = sessionStorage.getItem('hasSeenIntro');
     if (!hasSeenIntro) {
-      setIntroState('playing'); // Start the intro if it's the first visit
+      setIntroState('playing'); 
     }
   }, []);
 
   return (
     <main className="bg-gray-50 relative">
       
-      {/* 
-        This wrapper now controls the exit animation of the IntroOverlay.
-        `onExitComplete` is the key: it fires AFTER the curtain has fully lifted.
-      */}
       <AnimatePresence 
         onExitComplete={() => {
-          setIntroState('finished'); // 2. Mark intro as fully finished
+          setIntroState('finished'); 
           sessionStorage.setItem('hasSeenIntro', 'true');
         }}
       >
         {introState === 'playing' && (
           <IntroOverlay 
-            onStartExit={() => setIntroState('exiting')} // 1. Tell HomePage the intro is starting to exit
+            onStartExit={() => setIntroState('exiting')}
           />
         )}
       </AnimatePresence>
 
-      {/* Hero - Will only start its animation when introState is 'finished' */}
       <HeroSection startScene={introState === 'finished'} /> 
       
       <AboutIntroSection />
