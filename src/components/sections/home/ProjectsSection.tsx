@@ -4,18 +4,24 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
-// LOGO IMPORTS (Ensure these exist or use placeholders)
+// LOGO IMPORTS
 import logoCaseClash from '../../../assets/logos/logo-case-clash.png';
 import logoUpSkill from '../../../assets/logos/logo-upskill.png';
 import logoHydra from '../../../assets/logos/logo-hydraherder.png';
 import logoSecondCut from '../../../assets/logos/logo-second-cut.png';
 
-// SDG IMPORTS (Ensure these exist or use placeholders)
-// If you don't have these specific files yet, comment them out or use strings
-import sdg08 from '../../../assets/icons/sdg/sdg-8.jpg';
+// SDG IMPORTS - Updated to match ProjectsPage.tsx
+import sdg01 from '../../../assets/icons/sdg/sdg-1.jpg';
 import sdg04 from '../../../assets/icons/sdg/sdg-4.jpg';
-import sdg13 from '../../../assets/icons/sdg/sdg-13.jpg';
+import sdg06 from '../../../assets/icons/sdg/sdg-6.jpg';
+import sdg08 from '../../../assets/icons/sdg/sdg-8.jpg';
+import sdg09 from '../../../assets/icons/sdg/sdg-9.jpg';
+import sdg10 from '../../../assets/icons/sdg/sdg-10.jpg';
+import sdg11 from '../../../assets/icons/sdg/sdg-11.jpg';
 import sdg12 from '../../../assets/icons/sdg/sdg-12.jpg';
+import sdg13 from '../../../assets/icons/sdg/sdg-13.jpg';
+import sdg16 from '../../../assets/icons/sdg/sdg-16.jpg';
+import sdg17 from '../../../assets/icons/sdg/sdg-17.jpg';
 
 const projects = [
   {
@@ -25,7 +31,8 @@ const projects = [
     logo: logoCaseClash,
     link: "/projects#case-clash",
     category: "Business Competition",
-    sdgs: [sdg08, sdg04] // Pass the imported images
+    // Match ProjectsPage: 8, 4, 10, 9, 12, 17
+    sdgs: [sdg08, sdg04, sdg10, sdg09, sdg12, sdg17] 
   },
   {
     title: "Project UpSkill",
@@ -34,7 +41,8 @@ const projects = [
     logo: logoUpSkill,
     link: "/projects#project-upskill",
     category: "Financial Education",
-    sdgs: [sdg04, sdg08]
+    // Match ProjectsPage: 1, 4, 10, 11, 16
+    sdgs: [sdg01, sdg04, sdg10, sdg11, sdg16]
   },
   {
     title: "HydraHerder",
@@ -43,7 +51,8 @@ const projects = [
     logo: logoHydra,
     link: "/projects#hydraherder",
     category: "AI Technology",
-    sdgs: [sdg13, sdg12]
+    // Match ProjectsPage: 13, 6, 11, 9
+    sdgs: [sdg13, sdg06, sdg11, sdg09]
   },
   {
     title: "Second Cut",
@@ -52,7 +61,8 @@ const projects = [
     logo: logoSecondCut,
     link: "/projects#second-cut",
     category: "Sustainability",
-    sdgs: [sdg12, sdg13]
+    // Match ProjectsPage: 11, 12, 9, 13, 6
+    sdgs: [sdg11, sdg12, sdg09, sdg13, sdg06]
   }
 ];
 
@@ -89,7 +99,7 @@ const Card = ({ i, project, progress, range, targetScale }: any) => {
           </div>
 
           <span className="absolute top-6 left-6 md:top-auto md:bottom-6 md:left-6 text-white font-bold opacity-80 uppercase tracking-widest text-[10px] md:text-sm">
-            0{i + 1} — {project.category}
+            0{i + 1} â€” {project.category}
           </span>
         </div>
 
@@ -106,11 +116,16 @@ const Card = ({ i, project, progress, range, targetScale }: any) => {
             <p className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
               Impact Goals (SDGs)
             </p>
+            {/* Added overflow-hidden to keep cards neat if many icons appear */}
             <div className="flex flex-wrap gap-2">
               {project.sdgs && project.sdgs.map((sdg: string, idx: number) => (
-                <div key={idx} className="w-8 h-8 md:w-10 md:h-10 shadow-sm rounded overflow-hidden">
+                <motion.div 
+                  key={idx} 
+                  whileHover={{ scale: 1.1 }}
+                  className="w-8 h-8 md:w-10 md:h-10 shadow-sm rounded overflow-hidden"
+                >
                   <img src={sdg} alt="SDG" className="w-full h-full object-cover" />
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -143,7 +158,6 @@ export default function ProjectsSection() {
         <h2 className="text-4xl md:text-5xl font-bold text-gray-900">Projects Driving Change</h2>
       </div>
       
-      {/* THE MAPPING LOGIC WAS MISSING PREVIOUSLY - HERE IT IS */}
       <div className="flex flex-col gap-12">
         {projects.map((project, i) => {
           const targetScale = 1 - ((projects.length - i) * 0.05);

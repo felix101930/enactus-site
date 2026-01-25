@@ -2,19 +2,18 @@
 
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
-import { FaTrophy, FaMedal, FaCertificate, FaStar, FaTimes, FaExpandAlt } from 'react-icons/fa';
+import { FaTrophy, FaMedal, FaCertificate, FaStar, FaTimes, FaExpandAlt, FaPlay } from 'react-icons/fa';
 
 import PageHeader from '../components/sections/shared/PageHeader';
 import awardsHeroBg from '../assets/backgrounds/background-hero.png'; 
 
 // --- FIXED IMAGE IMPORTS ---
-// If a file is missing in your folder, these might error. 
-// Ensure files exist at src/assets/images/awards/ or set variable to "" (empty string).
 import imgNationals2025 from '../assets/images/awards/Nationals-2025.jpg'; 
 import imgHsbcDesjardins from '../assets/images/awards/HSBC_and_Desjardin.jpg';
 import imgScotiabankClimate from '../assets/images/awards/Scotiabank_cc.JPG';
 import imgScotiabankYouthTrophy from '../assets/images/awards/Scotiabank_Youth1.jpg';
 import imgMapleLeaf from '../assets/images/awards/MapleLeaf.jpg';
+import logoUpSkill from '../assets/logos/logo-upskill.png'; 
 
 // --- DATA STRUCTURE ---
 interface AwardData {
@@ -23,7 +22,8 @@ interface AwardData {
   category: string;
   description?: string;
   icon: React.ReactNode;
-  image?: string; // Optional image field
+  image?: string; 
+  videoId?: string; 
 }
 
 const awards: AwardData[] = [
@@ -41,14 +41,39 @@ const awards: AwardData[] = [
     category: "National First Runner Up",
     description: "Awarded to Project HydraHerder for excellence in infrastructure digital twin technology.",
     icon: <FaTrophy />,
-    // No image here? It will auto-generate a gradient background.
+    // No image = Auto Gradient
+  },
+  {
+    year: "2025",
+    title: "Maple Leaf Club Recognition",
+    category: "Individual Philanthropy Award",
+    description: "Recognizing Owen Taylor (SAIT Student) for giving a minimum of $1,000 to support the Enactus mission.",
+    icon: <FaStar />,
+    image: imgMapleLeaf
+  },
+  {
+    year: "2024",
+    title: "Enactus Canada National Competition",
+    category: "Alterna Savings Semi-finalist",
+    description: "Recognized for excellence in sustainable financial education projects.",
+    icon: <FaMedal />,
+    // No Image
+  },
+  {
+    year: "2024",
+    title: "Desjardins Youth Empowerment Challenge",
+    category: "Regional Second Runner Up",
+    description: "Awarded for outstanding impact in empowering youth through educational initiatives.",
+    icon: <FaCertificate />,
+    // No Image
   },
   {
     year: "2024",
     title: "PC Financial Resilience Project Accelerator",
     category: "Project Award Winner",
     description: "Recognizing Project UpSkill as a leading financial literacy and wellness program for addiction recovery.",
-    icon: <FaCertificate />
+    icon: <FaCertificate />,
+    image: logoUpSkill
   },
   {
     year: "2023",
@@ -66,6 +91,14 @@ const awards: AwardData[] = [
   },
   {
     year: "2020",
+    title: "Enactus National Competition",
+    category: "Opening Round Runner Up",
+    description: "Recognized for sustained excellence and competitive performance at the national level.",
+    icon: <FaMedal />,
+    // No Image
+  },
+  {
+    year: "2020",
     title: "Scotiabank Climate Change Challenge",
     category: "Regional Runner Up",
     icon: <FaCertificate />,
@@ -73,19 +106,18 @@ const awards: AwardData[] = [
   },
   {
     year: "2019",
+    title: "SAIT Presidential Leadership Award",
+    category: "Institutional Honor",
+    description: "Recognizing exceptional leadership and contribution to the student community within SAIT.",
+    icon: <FaTrophy />,
+    videoId: "-qQABWh3sTs" // UPDATED VIDEO ID
+  },
+  {
+    year: "2019",
     title: "Scotiabank Youth Empowerment Challenge",
     category: "Regional Second Runner Up",
     icon: <FaCertificate />,
     image: imgScotiabankYouthTrophy
-  }
-];
-
-const specialMentions = [
-  {
-    name: "Maple Leaf Club",
-    recipient: "Owen Taylor (SAIT Student)",
-    description: "Recognizing individuals who give a minimum of $1,000 every year to support the Enactus mission.",
-    image: imgMapleLeaf
   }
 ];
 
@@ -114,14 +146,29 @@ const PhotoModal = ({ award, onClose }: { award: AwardData | any; onClose: () =>
           <FaTimes size={30} />
         </button>
         
-        {/* Full Screen Image */}
-        <img 
-          src={award.image} 
-          alt={award.title} 
-          className="w-full h-full object-contain max-h-[85vh] rounded-lg shadow-2xl" 
-        />
+        {/* === VIDEO DISPLAY === */}
+        {award.videoId ? (
+           <div className="w-full aspect-video rounded-lg shadow-2xl overflow-hidden bg-black border border-white/10">
+             <iframe
+                className="w-full h-full"
+                src={`https://www.youtube.com/embed/${award.videoId}?autoplay=1&rel=0&modestbranding=1`}
+                title={award.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+           </div>
+        ) : (
+          /* === IMAGE DISPLAY === */
+          award.image && (
+            <img 
+              src={award.image} 
+              alt={award.title} 
+              className="w-full h-full object-contain max-h-[85vh] rounded-lg shadow-2xl" 
+            />
+          )
+        )}
         
-        <div className="mt-4 text-center">
+        <div className="mt-6 text-center">
             <h3 className="text-xl font-bold text-white">{award.category}</h3>
             <p className="text-gray-400">{award.year}</p>
         </div>
@@ -130,9 +177,14 @@ const PhotoModal = ({ award, onClose }: { award: AwardData | any; onClose: () =>
   );
 };
 
-// --- THE NEW POSTER CARD COMPONENT (Option 5) ---
+// --- THE POSTER CARD COMPONENT ---
 const PosterCard = ({ data, index, onOpen }: { data: AwardData; index: number; onOpen: (d: AwardData) => void }) => {
   const isEven = index % 2 === 0;
+
+  // If it's a video, use the YT thumbnail, otherwise use the uploaded image
+  const displayImage = data.videoId 
+    ? `https://img.youtube.com/vi/${data.videoId}/maxresdefault.jpg` 
+    : data.image;
   
   return (
     <div className={`flex items-center justify-between w-full mb-16 ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
@@ -151,32 +203,44 @@ const PosterCard = ({ data, index, onOpen }: { data: AwardData; index: number; o
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        onClick={() => data.image && onOpen(data)}
-        className={`relative w-full pl-16 md:pl-0 md:w-5/12 group ${data.image ? 'cursor-pointer' : ''}`}
+        // Click to Open Modal if Image OR Video exists
+        onClick={() => (data.image || data.videoId) && onOpen(data)}
+        className={`relative w-full pl-16 md:pl-0 md:w-5/12 group ${(data.image || data.videoId) ? 'cursor-pointer' : ''}`}
       >
         <div className="relative h-[400px] w-full rounded-2xl overflow-hidden shadow-2xl border border-gray-200 bg-gray-900">
           
-          {/* 1. BACKGROUND IMAGE or GRADIENT */}
-          {data.image ? (
-            <motion.img 
-              src={data.image} 
-              alt={data.title}
-              className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.7 }}
-            />
+          {/* 1. MEDIA LAYER: THUMBNAIL (Video) or IMAGE */}
+          {displayImage ? (
+            <>
+              <motion.img 
+                src={displayImage} 
+                alt={data.title}
+                className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.7 }}
+              />
+              
+              {/* PLAY BUTTON OVERLAY (For Videos Only) */}
+              {data.videoId && (
+                <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                    <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/50 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                       <FaPlay className="text-white text-2xl ml-1" />
+                    </div>
+                </div>
+              )}
+            </>
           ) : (
-            // Fallback Abstract Gradient if no image
+            // Fallback Abstract Gradient if no media
             <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-gray-800 via-gray-900 to-black">
                <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)', backgroundSize: '20px 20px' }}></div>
             </div>
           )}
 
-          {/* 2. GRADIENT OVERLAY (For text readability) */}
+          {/* 2. GRADIENT OVERLAY (For Text Readability) */}
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-90 group-hover:opacity-80 transition-opacity duration-500" />
 
           {/* 3. CONTENT OVERLAY */}
-          <div className="absolute inset-0 p-8 flex flex-col justify-end text-left z-10">
+          <div className="absolute inset-0 p-8 flex flex-col justify-end text-left z-30 pointer-events-none">
             
             {/* Top Badge */}
             <div className="absolute top-6 right-6">
@@ -185,8 +249,8 @@ const PosterCard = ({ data, index, onOpen }: { data: AwardData; index: number; o
                </span>
             </div>
 
-            {/* Expand Hint Icon */}
-            {data.image && (
+            {/* Expand Hint Icon (Show for Video OR Image) */}
+            {(data.image || data.videoId) && (
                 <div className="absolute top-6 left-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="bg-black/50 backdrop-blur-sm p-2 rounded-full text-white">
                         <FaExpandAlt size={14} />
@@ -199,16 +263,15 @@ const PosterCard = ({ data, index, onOpen }: { data: AwardData; index: number; o
                whileHover={{ y: -5 }}
                transition={{ duration: 0.3 }}
             >
-              <h4 className="text-yellow-400 font-bold uppercase text-xs tracking-widest mb-2">
+              <h4 className="text-yellow-400 font-bold uppercase text-xs tracking-widest mb-2 drop-shadow-md">
                 {data.title}
               </h4>
-              <h3 className="text-3xl font-bold text-white mb-4 leading-tight">
+              <h3 className="text-3xl font-bold text-white mb-4 leading-tight drop-shadow-md">
                 {data.category}
               </h3>
               
-              {/* Description is now white on dark */}
               {data.description && (
-                <p className="text-gray-300 text-sm leading-relaxed border-l-2 border-yellow-500 pl-4">
+                <p className="text-gray-300 text-sm leading-relaxed border-l-2 border-yellow-500 pl-4 bg-black/30 backdrop-blur-sm rounded-r-lg py-2 pr-2">
                   {data.description}
                 </p>
               )}
@@ -256,37 +319,6 @@ export default function AwardsPage() {
           </div>
         </div>
       </div>
-
-      {/* Hall of Fame Section */}
-      <section className="py-24 bg-gray-900 text-white">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <FaStar className="text-yellow-400 text-4xl mx-auto mb-6" />
-          <h2 className="text-4xl font-extrabold mb-12">Hall of Fame</h2>
-          
-          <div className="grid grid-cols-1 gap-8">
-            {specialMentions.map((mention, idx) => (
-              <motion.div 
-                key={idx} 
-                whileHover={{ y: -5 }}
-                onClick={() => setSelectedAward(mention as any)}
-                className="bg-white/5 border border-white/10 rounded-2xl p-8 hover:bg-white/10 transition-all cursor-pointer group flex flex-col md:flex-row items-center gap-8 text-left"
-              >
-                <div className="w-full md:w-1/3 h-48 rounded-xl overflow-hidden relative">
-                   <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10"></div>
-                   <img src={mention.image} alt={mention.recipient} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <h3 className="text-xl font-bold text-yellow-400">{mention.name}</h3>
-                  </div>
-                  <p className="text-2xl font-bold text-white mb-2">{mention.recipient}</p>
-                  <p className="text-gray-400 text-sm leading-relaxed">{mention.description}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
     </main>
   );
 }
