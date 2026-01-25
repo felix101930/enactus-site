@@ -10,7 +10,7 @@ import logoUpSkill from '../../../assets/logos/logo-upskill.png';
 import logoHydra from '../../../assets/logos/logo-hydraherder.png';
 import logoSecondCut from '../../../assets/logos/logo-second-cut.png';
 
-// SDG IMPORTS - Updated to match ProjectsPage.tsx
+// SDG IMPORTS
 import sdg01 from '../../../assets/icons/sdg/sdg-1.jpg';
 import sdg04 from '../../../assets/icons/sdg/sdg-4.jpg';
 import sdg06 from '../../../assets/icons/sdg/sdg-6.jpg';
@@ -31,7 +31,6 @@ const projects = [
     logo: logoCaseClash,
     link: "/projects#case-clash",
     category: "Business Competition",
-    // Match ProjectsPage: 8, 4, 10, 9, 12, 17
     sdgs: [sdg08, sdg04, sdg10, sdg09, sdg12, sdg17] 
   },
   {
@@ -41,7 +40,6 @@ const projects = [
     logo: logoUpSkill,
     link: "/projects#project-upskill",
     category: "Financial Education",
-    // Match ProjectsPage: 1, 4, 10, 11, 16
     sdgs: [sdg01, sdg04, sdg10, sdg11, sdg16]
   },
   {
@@ -51,7 +49,6 @@ const projects = [
     logo: logoHydra,
     link: "/projects#hydraherder",
     category: "AI Technology",
-    // Match ProjectsPage: 13, 6, 11, 9
     sdgs: [sdg13, sdg06, sdg11, sdg09]
   },
   {
@@ -61,7 +58,6 @@ const projects = [
     logo: logoSecondCut,
     link: "/projects#second-cut",
     category: "Sustainability",
-    // Match ProjectsPage: 11, 12, 9, 13, 6
     sdgs: [sdg11, sdg12, sdg09, sdg13, sdg06]
   }
 ];
@@ -99,7 +95,8 @@ const Card = ({ i, project, progress, range, targetScale }: any) => {
           </div>
 
           <span className="absolute top-6 left-6 md:top-auto md:bottom-6 md:left-6 text-white font-bold opacity-80 uppercase tracking-widest text-[10px] md:text-sm">
-            0{i + 1} â€” {project.category}
+            {/* FIXED CHARACTER HERE */}
+            0{i + 1} - {project.category}
           </span>
         </div>
 
@@ -116,7 +113,6 @@ const Card = ({ i, project, progress, range, targetScale }: any) => {
             <p className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
               Impact Goals (SDGs)
             </p>
-            {/* Added overflow-hidden to keep cards neat if many icons appear */}
             <div className="flex flex-wrap gap-2">
               {project.sdgs && project.sdgs.map((sdg: string, idx: number) => (
                 <motion.div 
