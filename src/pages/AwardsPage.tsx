@@ -110,7 +110,7 @@ const awards: AwardData[] = [
     category: "Institutional Honor",
     description: "Recognizing exceptional leadership and contribution to the student community within SAIT.",
     icon: <FaTrophy />,
-    videoId: "0h5l1sI-Bok" // UPDATED VIDEO ID
+    videoId: "-qQABWh3sTs" 
   },
   {
     year: "2019",
