@@ -1,16 +1,16 @@
 // src/components/sections/home/ProjectsSection.tsx
 
 import { useRef } from 'react';
-import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
-// Logo Imports
+// LOGO IMPORTS
 import logoCaseClash from '../../../assets/logos/logo-case-clash.png';
 import logoUpSkill from '../../../assets/logos/logo-upskill.png';
 import logoHydra from '../../../assets/logos/logo-hydraherder.png';
 import logoSecondCut from '../../../assets/logos/logo-second-cut.png';
 
-// SDG Imports
+// SDG IMPORTS - Updated to match ProjectsPage.tsx
 import sdg01 from '../../../assets/icons/sdg/sdg-1.jpg';
 import sdg04 from '../../../assets/icons/sdg/sdg-4.jpg';
 import sdg06 from '../../../assets/icons/sdg/sdg-6.jpg';
@@ -25,56 +25,49 @@ import sdg17 from '../../../assets/icons/sdg/sdg-17.jpg';
 
 const projects = [
   {
-    id: 1,
     title: "Case Clash",
+    description: "Bridging the gap between theory and reality. We pair high school students with local businesses to solve real operational challenges.",
+    color: "bg-red-500",
+    logo: logoCaseClash,
+    link: "/projects#case-clash",
     category: "Business Competition",
-    description: "Case Clash bridges the gap between high school theory and real-world business. We provide students with hands-on experience by partnering them with local small businesses to solve actual operational challenges.",
-    color: "bg-red-500", 
-    logo: logoCaseClash, 
-    sdgs: [sdg08, sdg04, sdg10, sdg09, sdg12, sdg17],
-    link: "/projects#case-clash"
+    // Match ProjectsPage: 8, 4, 10, 9, 12, 17
+    sdgs: [sdg08, sdg04, sdg10, sdg09, sdg12, sdg17] 
   },
   {
-    id: 2,
     title: "Project UpSkill",
-    category: "Financial Literacy",
-    description: "Delivers financial literacy and wellness resource workshops to individuals in addictions recovery programs in Calgary, providing tools for sustainable independence.",
-    color: "bg-yellow-400", 
+    description: "Financial literacy for a fresh start. Empowering addiction recovery centers with tailored workshops on budgeting and savings.",
+    color: "bg-yellow-500",
     logo: logoUpSkill,
-    sdgs: [sdg01, sdg04, sdg10, sdg11, sdg16],
-    link: "/projects#project-upskill"
+    link: "/projects#project-upskill",
+    category: "Financial Education",
+    // Match ProjectsPage: 1, 4, 10, 11, 16
+    sdgs: [sdg01, sdg04, sdg10, sdg11, sdg16]
   },
   {
-    id: 3,
     title: "HydraHerder",
-    category: "AI Infrastructure",
-    description: "Preventing failure before it happens. HydraHerder utilizes AI-powered predictive monitoring to detect leaks in water infrastructure early, conserving billions of liters of water annually.",
-    color: "bg-blue-500", 
+    description: "AI-driven infrastructure monitoring. Detecting water leaks before they become disasters using predictive digital twins.",
+    color: "bg-blue-500",
     logo: logoHydra,
-    sdgs: [sdg13, sdg06, sdg11, sdg09],
-    link: "/projects#hydraherder"
+    link: "/projects#hydraherder",
+    category: "AI Technology",
+    // Match ProjectsPage: 13, 6, 11, 9
+    sdgs: [sdg13, sdg06, sdg11, sdg09]
   },
   {
-    id: 4,
     title: "Second Cut",
-    category: "Waste Reclamation",
-    description: "Reclaims valuable materials from construction waste to reduce landfill impact, lower disposal costs, and generate sustainable revenue through circular economy practices.",
-    color: "bg-orange-500", 
+    description: "Reclaiming construction waste. We divert wood from landfills and upcycle it into sellable products.",
+    color: "bg-orange-500",
     logo: logoSecondCut,
-    sdgs: [sdg11, sdg12, sdg09, sdg13, sdg06],
-    link: "/projects#second-cut"
+    link: "/projects#second-cut",
+    category: "Sustainability",
+    // Match ProjectsPage: 11, 12, 9, 13, 6
+    sdgs: [sdg11, sdg12, sdg09, sdg13, sdg06]
   }
 ];
 
-interface CardProps {
-  i: number;
-  project: typeof projects[0];
-  progress: MotionValue<number>;
-  range: number[];
-  targetScale: number;
-}
-
-const Card = ({ i, project, progress, range, targetScale }: CardProps) => {
+// Individual Card Component
+const Card = ({ i, project, progress, range, targetScale }: any) => {
   const container = useRef(null);
   const { scrollYProgress } = useScroll({
     target: container,
@@ -85,49 +78,54 @@ const Card = ({ i, project, progress, range, targetScale }: CardProps) => {
   const scale = useTransform(progress, range, [1, targetScale]);
 
   return (
-    <div ref={container} className="h-screen flex items-center justify-center sticky top-0">
+    <div ref={container} className="h-screen flex items-center justify-center sticky top-0 px-4 md:px-0">
       <motion.div 
         style={{ scale, top: `calc(-5vh + ${i * 25}px)` }} 
-        className="relative flex flex-col md:flex-row h-[500px] w-full max-w-5xl rounded-3xl bg-white shadow-2xl overflow-hidden border border-gray-100 origin-top"
+        className="relative flex flex-col md:flex-row min-h-[550px] md:h-[500px] w-full max-w-5xl rounded-3xl bg-white shadow-2xl overflow-hidden border border-gray-100 origin-top"
       >
-        <div className={`w-full md:w-2/5 ${project.color} relative flex items-center justify-center p-8 overflow-hidden`}>
+        {/* LEFT COLOR BLOCK */}
+        <div className={`w-full md:w-2/5 ${project.color} relative flex items-center justify-center p-8 md:p-12 overflow-hidden shrink-0`}>
           <motion.div 
             style={{ scale: imageScale }}
             className="absolute w-64 h-64 bg-white opacity-20 rounded-full blur-3xl" 
           />
-          <div className="relative z-10 w-48 h-48 bg-white rounded-full flex items-center justify-center shadow-lg p-2">
+          
+          <div className="relative z-10 w-28 h-28 md:w-48 md:h-48 bg-white rounded-full flex items-center justify-center shadow-lg p-3">
              <img 
                src={project.logo} 
                alt={`${project.title} logo`} 
                className="w-full h-full object-contain rounded-full" 
              />
           </div>
-          <span className="absolute bottom-6 left-6 text-white font-bold opacity-80 uppercase tracking-widest text-sm">
-            0{i + 1} — {project.category}
+
+          <span className="absolute top-6 left-6 md:top-auto md:bottom-6 md:left-6 text-white font-bold opacity-80 uppercase tracking-widest text-[10px] md:text-sm">
+            0{i + 1} â€” {project.category}
           </span>
         </div>
 
-        <div className="w-full md:w-3/5 p-8 md:p-12 flex flex-col justify-center">
-          <h3 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+        {/* CONTENT BLOCK */}
+        <div className="w-full md:w-3/5 p-6 md:p-12 flex flex-col justify-center text-left">
+          <h3 className="text-3xl md:text-5xl font-bold text-gray-800 mb-4 md:mb-6">
             {project.title}
           </h3>
-          <p className="text-lg text-gray-600 leading-relaxed mb-8">
+          <p className="text-sm md:text-lg text-gray-600 leading-relaxed mb-6 md:mb-8">
             {project.description}
           </p>
 
           <div>
-            <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
+            <p className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
               Impact Goals (SDGs)
             </p>
+            {/* Added overflow-hidden to keep cards neat if many icons appear */}
             <div className="flex flex-wrap gap-2">
-              {project.sdgs.map((sdg, idx) => (
-                <div 
+              {project.sdgs && project.sdgs.map((sdg: string, idx: number) => (
+                <motion.div 
                   key={idx} 
-                  className="w-10 h-10 shadow-sm rounded overflow-hidden hover:scale-110 transition-transform"
-                  title="SDG Goal"
+                  whileHover={{ scale: 1.1 }}
+                  className="w-8 h-8 md:w-10 md:h-10 shadow-sm rounded overflow-hidden"
                 >
                   <img src={sdg} alt="SDG" className="w-full h-full object-cover" />
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -141,7 +139,6 @@ const Card = ({ i, project, progress, range, targetScale }: CardProps) => {
              </Link>
           </div>
         </div>
-
       </motion.div>
     </div>
   )
@@ -155,27 +152,27 @@ export default function ProjectsSection() {
   })
 
   return (
-    <div ref={container} className="relative mt-20 mb-20">
-      <div className="max-w-7xl mx-auto px-4 mb-12 text-center">
+    <div ref={container} className="relative py-20">
+      <div className="max-w-7xl mx-auto px-4 mb-24 text-center">
         <p className="text-yellow-500 font-bold mb-2">Our Initiatives</p>
-        <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
-          Projects Driving Change
-        </h2>
+        <h2 className="text-4xl md:text-5xl font-bold text-gray-900">Projects Driving Change</h2>
       </div>
-
-      {projects.map((project, i) => {
-        const targetScale = 1 - ( (projects.length - i) * 0.05);
-        return (
-          <Card 
-            key={project.id} 
-            i={i} 
-            project={project} 
-            progress={scrollYProgress}
-            range={[i * .25, 1]}
-            targetScale={targetScale}
-          />
-        )
-      })}
+      
+      <div className="flex flex-col gap-12">
+        {projects.map((project, i) => {
+          const targetScale = 1 - ((projects.length - i) * 0.05);
+          return (
+            <Card 
+              key={i} 
+              i={i} 
+              project={project} 
+              progress={scrollYProgress} 
+              range={[i * 0.25, 1]} 
+              targetScale={targetScale} 
+            />
+          )
+        })}
+      </div>
     </div>
   )
 }
