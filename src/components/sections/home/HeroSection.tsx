@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, type Variants } from 'framer-motion';
-import { FaPlay, FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
+import { FaPlay } from 'react-icons/fa';
 import VideoModal from '../../common/VideoModal'; 
 import heroFallback from '../../../assets/backgrounds/background-hero.png'; 
 
@@ -29,13 +29,9 @@ const wordVariants: Variants = {
 
 function HeroSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isMuted, setIsMuted] = useState(true); // <--- New State for Audio
   
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
-
-  // Dynamic URL construction based on mute state
-  const embedUrl = `https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&mute=${isMuted ? 1 : 0}&controls=0&loop=1&playlist=${VIDEO_ID}&playsinline=1&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1`;
 
   return (
     <>
@@ -44,7 +40,7 @@ function HeroSection() {
         {/* --- BACKGROUND LAYER --- */}
         <motion.div className="absolute inset-0 z-0 pointer-events-none" style={{ y }}>
           
-          {/* 1. Static Image Fallback (Behind everything) */}
+          {/* 1. Static Image Fallback */}
           <div 
             className="absolute inset-0 bg-cover bg-center z-0"
             style={{ backgroundImage: `url(${heroFallback})` }}
@@ -53,13 +49,15 @@ function HeroSection() {
           {/* 2. YouTube Background Video */}
           <div className="absolute inset-0 overflow-hidden z-10">
             {/* 
-                FIX: Removed 'opacity-90'. Now it is fully opaque. 
-                Added bg-black to ensure no white flashes during loading/reloading.
+                CSS FIX EXPLAINED:
+                1. w-[300%] md:w-[140%] -> Massive zoom on mobile to hide UI, slight zoom on desktop to see more context.
+                2. top-[-15%] -> This shifts the video UP. We see the top (faces), cropping the bottom (legs).
+                3. left-1/2 -translate-x-1/2 -> Keeps it centered horizontally.
             */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300%] h-[300%] bg-black">
+            <div className="absolute top-[-15%] md:top-[-10%] left-1/2 transform -translate-x-1/2 w-[300%] h-[300%] md:w-[140%] md:h-[140%] bg-black">
               <iframe
                 className="w-full h-full pointer-events-none"
-                src={embedUrl}
+                src={`https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&mute=1&controls=0&loop=1&playlist=${VIDEO_ID}&playsinline=1&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1`}
                 allow="autoplay; encrypted-media"
                 title="Hero Background"
               ></iframe>
@@ -67,8 +65,7 @@ function HeroSection() {
           </div>
 
           {/* 3. Dark Overlay */}
-          {/* Logic: If unmuted (watching), make overlay lighter so video is clearer. If muted (background), keep it dark for text reading. */}
-          <div className={`absolute inset-0 z-20 transition-all duration-1000 ${isMuted ? 'bg-black/60 backdrop-blur-[2px]' : 'bg-black/30'}`}></div>
+          <div className="absolute inset-0 z-20 bg-black/50"></div>
         </motion.div>
 
         {/* --- CONTENT LAYER --- */}
@@ -104,7 +101,7 @@ function HeroSection() {
               View Our Impact
             </Link>
 
-            {/* "Watch Recap" - Opens the full Cinema Modal */}
+            {/* Watch Recap Button */}
             <button
               onClick={() => setIsModalOpen(true)}
               className="group px-8 py-4 bg-white/10 backdrop-blur-md border border-white/30 text-white font-bold text-lg rounded-full transition-all duration-300 hover:bg-white hover:text-black hover:scale-105 active:scale-95 flex items-center justify-center gap-3"
@@ -115,17 +112,6 @@ function HeroSection() {
               Theater Mode
             </button>
           </motion.div>
-        </div>
-
-        {/* --- SMALL UNMUTE TOGGLE (Bottom Right) --- */}
-        <div className="absolute bottom-8 right-8 z-40">
-           <button 
-             onClick={() => setIsMuted(!isMuted)}
-             className="w-12 h-12 flex items-center justify-center rounded-full bg-black/50 hover:bg-yellow-400 hover:text-black text-white border border-white/20 backdrop-blur-sm transition-all duration-300 pointer-events-auto"
-             title={isMuted ? "Unmute Video" : "Mute Video"}
-           >
-             {isMuted ? <FaVolumeMute size={20} /> : <FaVolumeUp size={20} />}
-           </button>
         </div>
 
       </section>
