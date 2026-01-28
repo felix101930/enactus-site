@@ -43,28 +43,27 @@ function TeamSectionAbout() {
     { id: 'hierarchy', name: 'Hierarchy Structure' },
     { id: 'deck', name: 'Interactive Deck' },
   ];
-  
+
   return (
     <section className="bg-white py-16 px-4 text-center overflow-hidden">
-      <div className="max-w-[1400px] mx-auto"> 
+      <div className="max-w-[1400px] mx-auto">
 
         {/* Section Header */}
         <h2 className="text-5xl font-bold text-gray-900 mb-6">Team Structure</h2>
         <p className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
           Explore our organization. Interact with the models below to see how we connect.
         </p>
-        
+
         {/* View Switcher UI */}
         <div className="mb-12 p-1.5 bg-gray-100 border border-gray-200 rounded-full inline-flex shadow-inner flex-wrap justify-center gap-2">
           {viewOptions.map(option => (
             <button
               key={option.id}
               onClick={() => setCurrentView(option.id)}
-              className={`px-6 py-2 rounded-full text-base font-bold transition-all duration-300 ${
-                currentView === option.id 
-                ? 'bg-yellow-400 text-black shadow-lg transform scale-105' 
+              className={`px-6 py-2 rounded-full text-base font-bold transition-all duration-300 ${currentView === option.id
+                ? 'bg-yellow-400 text-black shadow-lg transform scale-105'
                 : 'bg-transparent text-gray-500 hover:text-gray-900 hover:bg-gray-200'
-              }`}
+                }`}
             >
               {option.name}
             </button>
@@ -80,7 +79,7 @@ function TeamSectionAbout() {
               {currentView === 'deck' && <InteractiveDeckView data={teamData} />}
             </div>
           </div>
-          
+
           {/* Mobile Hint Overlay */}
           <div className="md:hidden absolute bottom-4 left-0 w-full text-center pointer-events-none opacity-50">
             <span className="bg-black/10 px-3 py-1 rounded-full text-xs font-bold text-gray-500">

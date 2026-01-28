@@ -5,7 +5,8 @@ import FadeIn from '../components/common/FadeIn';
 import PageHeader from '../components/sections/shared/PageHeader';
 import WhoWeAreSection from '../components/sections/about/WhoWeAreSection';
 import OurMissionSection from '../components/sections/about/OurMissionSection';
-import TeamSectionAbout from '../components/sections/about/TeamSectionAbout'; 
+// import TeamSectionAbout from '../components/sections/about/TeamSectionAbout';
+import StudentTeamHierarchical from '../components/sections/about/StudentTeamHierarchical';
 import FacultyFoundation from '../components/sections/about/FacultyFoundation'; // <--- NEW COMPONENT
 import aboutHeroBg from '../assets/backgrounds/background-about-hero.png';
 
@@ -17,12 +18,12 @@ function AboutPage() {
         title="Empowering change through purpose and passion."
         backgroundImage={aboutHeroBg}
       />
-      
+
       {/* 1. Context First */}
       <FadeIn>
         <WhoWeAreSection />
       </FadeIn>
-      
+
       <FadeIn>
         <OurMissionSection />
       </FadeIn>
@@ -36,7 +37,8 @@ function AboutPage() {
       {/* ID="team" is here so the homepage link jumps to the chart */}
       <div id="team">
         <FadeIn>
-          <TeamSectionAbout />
+          {/* <TeamSectionAbout /> */}
+          <StudentTeamHierarchical />
         </FadeIn>
       </div>
 
