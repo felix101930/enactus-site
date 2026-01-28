@@ -9,16 +9,16 @@ import placeholderImage from '../../../assets/placeholders/placeholder-profile.j
 const teamData = {
     coPresidents: [
         { name: 'Keshav Sharma', role: 'Co-President', image: placeholderImage, linkedin: '#' },
-        { name: 'Yumnaa Farooq', role: 'Co-President', image: placeholderImage, linkedin: '#' }
+        { name: 'Yumnaa Farooq', role: 'Co-President', image: placeholderImage, linkedin: 'https://www.linkedin.com/in/yumnaa-farooq/' }
     ],
     operations: {
-        vp: { name: 'Veer Rajgor', role: 'VP of Operations', image: placeholderImage, linkedin: '#' },
+        vp: { name: 'Veer Rajgor', role: 'VP of Operations', image: placeholderImage, linkedin: 'https://www.linkedin.com/in/veer-rajgor/' },
         directors: [
             { name: 'Nisarg Bhatt', role: 'Finance Director', image: placeholderImage, linkedin: '#' },
-            { name: 'Cindy Ngyuen', role: 'Events Director', image: placeholderImage, linkedin: '#' },
-            { name: 'Felix Montanez', role: 'R&D Co-Director', image: placeholderImage, linkedin: '#' },
-            { name: 'Anastasiia Davydova', role: 'Marketing Director', image: placeholderImage, linkedin: '#' },
-            { name: 'Silve Rahman', role: 'HR Director', image: placeholderImage, linkedin: '#' },
+            { name: 'Cindy Ngyuen', role: 'Events Director', image: placeholderImage, linkedin: 'https://www.linkedin.com/in/cinhieunguyen/' },
+            { name: 'Felix Montanez', role: 'R&D Co-Director', image: placeholderImage, linkedin: 'https://www.linkedin.com/in/felix-gabriel-monta%C3%B1ez/?originalSubdomain=ca' },
+            { name: 'Anastasiia Davydova', role: 'Marketing Director', image: placeholderImage, linkedin: 'https://www.linkedin.com/in/stacey-davydova-business-marketing/' },
+            { name: 'Silve Rahman', role: 'HR Director', image: placeholderImage, linkedin: 'https://www.linkedin.com/in/silve-rahman-816b0417a/' },
         ]
     },
     projects: {
