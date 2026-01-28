@@ -1,43 +1,56 @@
 // src/components/sections/about/StudentTeamHierarchical.tsx
 
 import { motion } from 'framer-motion';
+import { FaLinkedin } from 'react-icons/fa';
 
 // --- TEAM DATA ---
 import placeholderImage from '../../../assets/placeholders/placeholder-profile.jpg';
 
 const teamData = {
     coPresidents: [
-        { name: 'Keshav Sharma', role: 'Co-President', image: placeholderImage },
-        { name: 'Yumnaa Farooq', role: 'Co-President', image: placeholderImage }
+        { name: 'Keshav Sharma', role: 'Co-President', image: placeholderImage, linkedin: '#' },
+        { name: 'Yumnaa Farooq', role: 'Co-President', image: placeholderImage, linkedin: '#' }
     ],
     operations: {
-        vp: { name: 'Veer Rajgor', role: 'VP of Operations', image: placeholderImage },
+        vp: { name: 'Veer Rajgor', role: 'VP of Operations', image: placeholderImage, linkedin: '#' },
         directors: [
-            { name: 'Nisarg Bhatt', role: 'Finance Director', image: placeholderImage },
-            { name: 'Cindy Ngyuen', role: 'Events Director', image: placeholderImage },
-            { name: 'Felix Montanez', role: 'R&D Co-Director', image: placeholderImage },
-            { name: 'Anastasiia Davydova', role: 'Marketing Director', image: placeholderImage },
-            { name: 'Silve Rahman', role: 'HR Director', image: placeholderImage },
+            { name: 'Nisarg Bhatt', role: 'Finance Director', image: placeholderImage, linkedin: '#' },
+            { name: 'Cindy Ngyuen', role: 'Events Director', image: placeholderImage, linkedin: '#' },
+            { name: 'Felix Montanez', role: 'R&D Co-Director', image: placeholderImage, linkedin: '#' },
+            { name: 'Anastasiia Davydova', role: 'Marketing Director', image: placeholderImage, linkedin: '#' },
+            { name: 'Silve Rahman', role: 'HR Director', image: placeholderImage, linkedin: '#' },
         ]
     },
     projects: {
-        vp: { name: 'Yared Okubay', role: 'VP of Enterprises', image: placeholderImage },
+        vp: { name: 'Yared Okubay', role: 'VP of Enterprises', image: placeholderImage, linkedin: '#' },
         managers: [
-            { name: 'Yixuan (Bleyle) Liu', role: 'Case Clash PM', image: placeholderImage },
-            { name: 'Kavya', role: 'Case Clash PM', image: placeholderImage },
+            { name: 'Yixuan (Bleyle) Liu', role: 'Case Clash PM', image: placeholderImage, linkedin: '#' },
+            { name: 'Kavya', role: 'Case Clash PM', image: placeholderImage, linkedin: '#' },
         ]
     }
 };
 
-const MemberCard = ({ name, role, image, isLarge = false }: { name: string, role: string, image: string, isLarge?: boolean }) => (
+const MemberCard = ({ name, role, image, linkedin, isLarge = false }: { name: string, role: string, image: string, linkedin?: string, isLarge?: boolean }) => (
     <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className={`bg-white rounded-2xl shadow-md border border-gray-100 p-4 flex flex-col items-center text-center transition-all hover:shadow-xl hover:-translate-y-1 ${isLarge ? 'w-64' : 'w-48'}`}
+        className={`bg-white rounded-2xl shadow-md border border-gray-100 p-4 flex flex-col items-center text-center transition-all hover:shadow-xl hover:-translate-y-1 ${isLarge ? 'w-64' : 'w-48'} group`}
     >
-        <div className={`relative mb-3 rounded-full overflow-hidden border-4 ${isLarge ? 'w-24 h-24 border-yellow-400' : 'w-20 h-20 border-gray-100'}`}>
-            <img src={image} alt={name} className="w-full h-full object-cover" />
+        <div className={`relative mb-3 rounded-full overflow-hidden border-4 ${isLarge ? 'w-24 h-24 border-yellow-400' : 'w-20 h-20 border-gray-100'} group-hover:border-yellow-400 transition-colors duration-300`}>
+            <img src={image} alt={name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+
+            {/* LinkedIn Overlay */}
+            {linkedin && (
+                <a
+                    href={linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                >
+                    <FaLinkedin className="text-white text-2xl hover:text-yellow-400 transition-colors" />
+                </a>
+            )}
         </div>
         <h3 className={`font-bold text-gray-900 leading-tight ${isLarge ? 'text-lg' : 'text-base'}`}>{name}</h3>
         <p className="text-sm font-medium text-yellow-600 uppercase tracking-wider mt-1">{role}</p>
