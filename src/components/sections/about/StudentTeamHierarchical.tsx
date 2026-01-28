@@ -102,8 +102,8 @@ const StudentTeamHierarchical = () => {
                             <MemberCard {...teamData.operations.vp} isLarge={true} />
                         </div>
 
-                        {/* Directors Grid */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {/* Directors Grid - Changed to Flex for centering */}
+                        <div className="flex flex-wrap justify-center gap-6">
                             {teamData.operations.directors.map((d) => (
                                 <MemberCard key={d.name} {...d} />
                             ))}
@@ -117,8 +117,8 @@ const StudentTeamHierarchical = () => {
                             <MemberCard {...teamData.projects.vp} isLarge={true} />
                         </div>
 
-                        {/* Managers Grid */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {/* Managers Grid - Changed to Flex for centering */}
+                        <div className="flex flex-wrap justify-center gap-6">
                             {teamData.projects.managers.map((m) => (
                                 <MemberCard key={m.name} {...m} />
                             ))}
