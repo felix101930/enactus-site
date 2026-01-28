@@ -57,12 +57,11 @@ const MemberCard = ({ name, role, image, linkedin, isLarge = false }: { name: st
     </motion.div>
 );
 
-const SectionHeader = ({ title, subtitle }: { title: string, subtitle: string }) => (
+const SectionHeader = ({ title }: { title: string }) => (
     <div className="flex flex-col items-center mb-8">
         <div className="bg-yellow-400 text-black px-6 py-2 rounded-full font-bold text-lg shadow-md mb-2">
             {title}
         </div>
-        <div className="text-gray-900 font-bold text-xl">{subtitle}</div>
     </div>
 );
 
@@ -98,7 +97,7 @@ const StudentTeamHierarchical = () => {
 
                     {/* Left Branch: Operations */}
                     <div className="flex flex-col items-center">
-                        <SectionHeader title="OPERATIONS" subtitle={teamData.operations.vp.name} />
+                        <SectionHeader title="OPERATIONS" />
                         <div className="mb-12">
                             <MemberCard {...teamData.operations.vp} isLarge={true} />
                         </div>
@@ -113,7 +112,7 @@ const StudentTeamHierarchical = () => {
 
                     {/* Right Branch: Projects */}
                     <div className="flex flex-col items-center">
-                        <SectionHeader title="PROJECTS" subtitle={teamData.projects.vp.name} />
+                        <SectionHeader title="PROJECTS" />
                         <div className="mb-12">
                             <MemberCard {...teamData.projects.vp} isLarge={true} />
                         </div>
