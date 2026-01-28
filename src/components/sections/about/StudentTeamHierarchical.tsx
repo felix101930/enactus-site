@@ -87,16 +87,17 @@ const StudentTeamHierarchical = () => {
                 </div>
 
                 {/* Level 2: The Two Branches */}
-                <div className="w-full relative flex flex-col md:flex-row justify-center gap-16 md:gap-32">
+                {/* Use Grid to ensure exact 50% split for alignment with lines */}
+                <div className="w-full relative grid grid-cols-1 md:grid-cols-2 gap-y-16 mt-8">
 
                     {/* Connecting Horizontal Line */}
-                    <div className="absolute top-[-3rem] left-1/4 right-1/4 h-1 bg-gray-300 hidden md:block"></div>
+                    <div className="absolute top-[-2rem] left-1/4 right-1/4 h-1 bg-gray-300 hidden md:block"></div>
                     {/* Vertical lines down to branches */}
-                    <div className="absolute top-[-3rem] left-1/4 w-1 h-8 bg-gray-300 hidden md:block"></div>
-                    <div className="absolute top-[-3rem] right-1/4 w-1 h-8 bg-gray-300 hidden md:block"></div>
+                    <div className="absolute top-[-2rem] left-1/4 w-1 h-8 bg-gray-300 hidden md:block"></div>
+                    <div className="absolute top-[-2rem] right-1/4 w-1 h-8 bg-gray-300 hidden md:block"></div>
 
                     {/* Left Branch: Operations */}
-                    <div className="flex-1 flex flex-col items-center">
+                    <div className="flex flex-col items-center">
                         <SectionHeader title="OPERATIONS" subtitle={teamData.operations.vp.name} />
                         <div className="mb-12">
                             <MemberCard {...teamData.operations.vp} isLarge={true} />
@@ -111,7 +112,7 @@ const StudentTeamHierarchical = () => {
                     </div>
 
                     {/* Right Branch: Projects */}
-                    <div className="flex-1 flex flex-col items-center">
+                    <div className="flex flex-col items-center">
                         <SectionHeader title="PROJECTS" subtitle={teamData.projects.vp.name} />
                         <div className="mb-12">
                             <MemberCard {...teamData.projects.vp} isLarge={true} />
