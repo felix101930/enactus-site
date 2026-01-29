@@ -13,10 +13,14 @@ import cindyImage from '../../../assets/images/team/cindy-nguyen.jpg';
 import felixImage from '../../../assets/images/team/felix-montanez.jpg';
 import anastasiiaImage from '../../../assets/images/team/anastasiia-davydova.jpg';
 import silveImage from '../../../assets/images/team/silve-rahman.jpg';
+import kenImage from '../../../assets/images/team/ken-ticguingan.jpg';
+import ashleenImage from '../../../assets/images/team/ashleen-sidhu.jpg';
+import yixuanImage from '../../../assets/images/team/yixuan-liu.png';
+import kavyaImage from '../../../assets/images/team/kavya.jpg';
 
 const teamData = {
     coPresidents: [
-        { name: 'Keshav Sharma', role: 'Co-President', image: keshavImage, linkedin: '#' },
+        { name: 'Keshav Sharma', role: 'Co-President', image: keshavImage, linkedin: 'https://www.linkedin.com/in/keshav-sharma-94623b291/' },
         { name: 'Yumnaa Farooq', role: 'Co-President', image: yumnaaImage, linkedin: 'https://www.linkedin.com/in/yumnaa-farooq/' }
     ],
     operations: {
@@ -27,13 +31,15 @@ const teamData = {
             { name: 'Felix Montanez', role: 'R&D Co-Director', image: felixImage, linkedin: 'https://www.linkedin.com/in/felix-gabriel-monta%C3%B1ez/?originalSubdomain=ca' },
             { name: 'Stacey Davydova', role: 'Marketing Director', image: anastasiiaImage, linkedin: 'https://www.linkedin.com/in/stacey-davydova-business-marketing/' },
             { name: 'Silve Rahman', role: 'HR Director', image: silveImage, linkedin: 'https://www.linkedin.com/in/silve-rahman-816b0417a/' },
+            { name: 'Ken Ticguingan', role: 'Mental Wellness Ambassador', image: kenImage, linkedin: '#' },
         ]
     },
     projects: {
         vp: { name: 'Yared Okubay', role: 'VP of Enterprises', image: placeholderImage, linkedin: '#' },
         managers: [
-            { name: 'Yixuan (Bleyle) Liu', role: 'Case Clash PM', image: placeholderImage, linkedin: '#' },
-            { name: 'Kavya', role: 'Case Clash PM', image: placeholderImage, linkedin: '#' },
+            { name: 'Yixuan (Bleyle) Liu', role: 'Case Clash PM', image: yixuanImage, linkedin: 'https://www.linkedin.com/in/yixuanliu05/' },
+            { name: 'Kavya', role: 'Case Clash PM', image: kavyaImage, linkedin: 'https://www.linkedin.com/in/kavya-dalwadi-613290251/' },
+            { name: 'Ashleen Sidhu', role: 'Project/Events Manager', image: ashleenImage, linkedin: 'https://www.linkedin.com/in/ashleen-sidhu/' },
         ]
     }
 };

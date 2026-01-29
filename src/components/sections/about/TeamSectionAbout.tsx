@@ -16,6 +16,10 @@ import cindyImage from '../../assets/images/team/cindy-nguyen.jpg';
 import felixImage from '../../assets/images/team/felix-montanez.jpg';
 import anastasiiaImage from '../../assets/images/team/anastasiia-davydova.jpg';
 import silveImage from '../../assets/images/team/silve-rahman.jpg';
+import kenImage from '../../assets/images/team/ken-ticguingan.jpg';
+import ashleenImage from '../../assets/images/team/ashleen-sidhu.jpg';
+import yixuanImage from '../../assets/images/team/yixuan-liu.png';
+import kavyaImage from '../../assets/images/team/kavya.jpg';
 
 const teamData = {
   coPresidents: [
@@ -30,16 +34,15 @@ const teamData = {
       { name: 'Felix Montanez', role: 'R&D Co-Director', image: felixImage },
       { name: 'Stacey Davydova', role: 'Marketing Director', image: anastasiiaImage },
       { name: 'Silve Rahman', role: 'HR Director', image: silveImage },
+      { name: 'Ken Ticguingan', role: 'Mental Wellness Ambassador', image: kenImage },
     ]
   },
   projects: {
     vp: { name: 'Yared Okubay', role: 'VP of Enterprises', image: placeholderImage },
     managers: [
-      { name: 'Yixuan (Bleyle) Liu', role: 'Case Clash PM', image: placeholderImage },
-      { name: 'Kavya', role: 'Case Clash PM', image: placeholderImage },
-      { name: 'Tea Boulanger', role: 'Project Upskill PM', image: placeholderImage },
-      { name: 'Shafra Due', role: 'Project Upskill PM', image: placeholderImage },
-      { name: 'Open Position', role: 'Second Cut Enterprise Manager', image: placeholderImage },
+      { name: 'Yixuan (Bleyle) Liu', role: 'Case Clash PM', image: yixuanImage },
+      { name: 'Kavya', role: 'Case Clash PM', image: kavyaImage },
+      { name: 'Ashleen Sidhu', role: 'Project/Events Manager', image: ashleenImage },
     ]
   }
 };
