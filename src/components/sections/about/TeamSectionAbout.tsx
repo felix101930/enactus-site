@@ -7,29 +7,39 @@ import HierarchyView from './org-chart-views/HierarchyView';
 import InteractiveDeckView from './org-chart-views/InteractiveDeckView';
 
 // --- TEAM DATA ---
+import placeholderImage from '../../assets/placeholders/placeholder-profile.jpg';
+import keshavImage from '../../assets/images/team/keshav-sharma.jpg';
+import yumnaaImage from '../../assets/images/team/yumnaa-farooq.jpg';
+import veerImage from '../../assets/images/team/veer-rajgor.jpg';
+import nisargImage from '../../assets/images/team/nisarg-bhatt.jpg';
+import cindyImage from '../../assets/images/team/cindy-nguyen.jpg';
+import felixImage from '../../assets/images/team/felix-montanez.jpg';
+import anastasiiaImage from '../../assets/images/team/anastasiia-davydova.jpg';
+import silveImage from '../../assets/images/team/silve-rahman.jpg';
+
 const teamData = {
   coPresidents: [
-    { name: 'Keshav Sharma', role: 'Co-President' },
-    { name: 'Yumnaa Farooq', role: 'Co-President' }
+    { name: 'Keshav Sharma', role: 'Co-President', image: keshavImage },
+    { name: 'Yumnaa Farooq', role: 'Co-President', image: yumnaaImage }
   ],
   operations: {
-    vp: { name: 'Veer Rajgor', role: 'VP of Operations' }, // Fixed Spelling
+    vp: { name: 'Veer Rajgor', role: 'VP of Operations', image: veerImage },
     directors: [
-      { name: 'Nisarg Bhatt', role: 'Finance Director' },
-      { name: 'Cindy Ngyuen', role: 'Events Director' },
-      { name: 'Felix Montanez', role: 'R&D Co-Director' },
-      { name: 'Anastasiia Davydova', role: 'Marketing Director' },
-      { name: 'Silve Rahman', role: 'HR Director' },
+      { name: 'Nisarg Bhatt', role: 'Finance Director', image: nisargImage },
+      { name: 'Cindy Ngyuen', role: 'Events Director', image: cindyImage },
+      { name: 'Felix Montanez', role: 'R&D Co-Director', image: felixImage },
+      { name: 'Stacey Davydova', role: 'Marketing Director', image: anastasiiaImage },
+      { name: 'Silve Rahman', role: 'HR Director', image: silveImage },
     ]
   },
   projects: {
-    vp: { name: 'Yared Okubay', role: 'VP of Enterprises' },
+    vp: { name: 'Yared Okubay', role: 'VP of Enterprises', image: placeholderImage },
     managers: [
-      { name: 'Yixuan (Bleyle) Liu', role: 'Case Clash PM' },
-      { name: 'Kavya', role: 'Case Clash PM' },
-      { name: 'Tea Boulanger', role: 'Project Upskill PM' },
-      { name: 'Shafra Due', role: 'Project Upskill PM' },
-      { name: 'Open Position', role: 'Second Cut Enterprise Manager' },
+      { name: 'Yixuan (Bleyle) Liu', role: 'Case Clash PM', image: placeholderImage },
+      { name: 'Kavya', role: 'Case Clash PM', image: placeholderImage },
+      { name: 'Tea Boulanger', role: 'Project Upskill PM', image: placeholderImage },
+      { name: 'Shafra Due', role: 'Project Upskill PM', image: placeholderImage },
+      { name: 'Open Position', role: 'Second Cut Enterprise Manager', image: placeholderImage },
     ]
   }
 };

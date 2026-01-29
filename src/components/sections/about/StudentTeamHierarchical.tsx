@@ -5,20 +5,28 @@ import { FaLinkedin } from 'react-icons/fa';
 
 // --- TEAM DATA ---
 import placeholderImage from '../../../assets/placeholders/placeholder-profile.jpg';
+import keshavImage from '../../../assets/images/team/keshav-sharma.jpg';
+import yumnaaImage from '../../../assets/images/team/yumnaa-farooq.jpg';
+import veerImage from '../../../assets/images/team/veer-rajgor.jpg';
+import nisargImage from '../../../assets/images/team/nisarg-bhatt.jpg';
+import cindyImage from '../../../assets/images/team/cindy-nguyen.jpg';
+import felixImage from '../../../assets/images/team/felix-montanez.jpg';
+import anastasiiaImage from '../../../assets/images/team/anastasiia-davydova.jpg';
+import silveImage from '../../../assets/images/team/silve-rahman.jpg';
 
 const teamData = {
     coPresidents: [
-        { name: 'Keshav Sharma', role: 'Co-President', image: placeholderImage, linkedin: '#' },
-        { name: 'Yumnaa Farooq', role: 'Co-President', image: placeholderImage, linkedin: 'https://www.linkedin.com/in/yumnaa-farooq/' }
+        { name: 'Keshav Sharma', role: 'Co-President', image: keshavImage, linkedin: '#' },
+        { name: 'Yumnaa Farooq', role: 'Co-President', image: yumnaaImage, linkedin: 'https://www.linkedin.com/in/yumnaa-farooq/' }
     ],
     operations: {
-        vp: { name: 'Veer Rajgor', role: 'VP of Operations', image: placeholderImage, linkedin: 'https://www.linkedin.com/in/veer-rajgor/' },
+        vp: { name: 'Veer Rajgor', role: 'VP of Operations', image: veerImage, linkedin: 'https://www.linkedin.com/in/veer-rajgor/' },
         directors: [
-            { name: 'Nisarg Bhatt', role: 'Finance Director', image: placeholderImage, linkedin: '#' },
-            { name: 'Cindy Ngyuen', role: 'Events Director', image: placeholderImage, linkedin: 'https://www.linkedin.com/in/cinhieunguyen/' },
-            { name: 'Felix Montanez', role: 'R&D Co-Director', image: placeholderImage, linkedin: 'https://www.linkedin.com/in/felix-gabriel-monta%C3%B1ez/?originalSubdomain=ca' },
-            { name: 'Anastasiia Davydova', role: 'Marketing Director', image: placeholderImage, linkedin: 'https://www.linkedin.com/in/stacey-davydova-business-marketing/' },
-            { name: 'Silve Rahman', role: 'HR Director', image: placeholderImage, linkedin: 'https://www.linkedin.com/in/silve-rahman-816b0417a/' },
+            { name: 'Nisarg Bhatt', role: 'Finance Director', image: nisargImage, linkedin: '#' },
+            { name: 'Cindy Ngyuen', role: 'Events Director', image: cindyImage, linkedin: 'https://www.linkedin.com/in/cinhieunguyen/' },
+            { name: 'Felix Montanez', role: 'R&D Co-Director', image: felixImage, linkedin: 'https://www.linkedin.com/in/felix-gabriel-monta%C3%B1ez/?originalSubdomain=ca' },
+            { name: 'Stacey Davydova', role: 'Marketing Director', image: anastasiiaImage, linkedin: 'https://www.linkedin.com/in/stacey-davydova-business-marketing/' },
+            { name: 'Silve Rahman', role: 'HR Director', image: silveImage, linkedin: 'https://www.linkedin.com/in/silve-rahman-816b0417a/' },
         ]
     },
     projects: {
